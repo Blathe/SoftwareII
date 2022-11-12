@@ -9,6 +9,7 @@ namespace SoftwareII
 {
     static class Program
     {
+        public static DBConnectionService DBService;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -18,9 +19,11 @@ namespace SoftwareII
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DBConnectionService.StartConnection();
-            Application.Run(new Form1());
-            DBConnectionService.CloseConnection();
+            DBService = new DBConnectionService();
+
+            DBService.StartConnection();
+            Application.Run(new LoginForm(DBService));
+            DBService.CloseConnection();
         }
     }
 }
