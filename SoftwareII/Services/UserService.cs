@@ -13,85 +13,109 @@ namespace SoftwareII.Services
     public class UserService
     {
         public DBConnectionService _databaseService;
-        public User _user;
+        private MySqlConnection _connection;
 
-        public UserService(DBConnectionService databaseService)
+        public UserService(DBConnectionService databaseService, MySqlConnection connection)
         {
             Console.WriteLine("User service initiated!");
             _databaseService = databaseService;
+            _connection = connection;
         }
 
         public void AuthenticateUser(string username, string password, CultureInfo culture, LoginForm loginForm)
         {
-            try
+            using (_connection)
             {
                 var query = string.Format("SELECT * FROM user WHERE userName='{0}'", username);
-                var cmd = new MySqlCommand(query, _databaseService.connection);
-
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
+                using (var cmd = new MySqlCommand(query, _databaseService.connection))
                 {
-                    if (rdr.GetString(2) == password)
+                    using (var rdr = cmd.ExecuteReader())
                     {
-
-                        MainForm form = new MainForm();
-                        form.Show();
-                        loginForm.Hide();
-
-                    } else
-                    {
-                        switch (culture.Name)
+                        while (rdr.Read())
                         {
-                            case "en-US":
-                                MessageBox.Show("Username or password is invalid.");
-                                break;
-                            case "de-DE":
-                                MessageBox.Show("Benutzername oder Passwort ist ungültig.");
-                                break;
-                            default:
-                                MessageBox.Show("Language is unsupported. (Try English or German.");
-                                break;
+                            if (rdr.GetString(2) == password)
+                            {
+                                rdr.Close();
+                                SchedulingManagerForm form = new SchedulingManagerForm(this);
+                                form.Show();
+                                loginForm.Hide();
+                                return;
+                            }
+                            else
+                            {
+                                switch (culture.Name)
+                                {
+                                    case "en-US":
+                                        MessageBox.Show("Username or password is invalid.");
+                                        break;
+                                    case "de-DE":
+                                        MessageBox.Show("Benutzername oder Passwort ist ungültig.");
+                                        break;
+                                    default:
+                                        MessageBox.Show("Language is unsupported. (Try English or German.");
+                                        break;
+                                }
+                                return;
+                            }
                         }
-                        return;
                     }
                 }
-                rdr.Close();
-
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
+        }
+
+        public User CreateNewUser()
+        {
+            var user = new User();
+            return user;
+        }
+        
+        public User UpdateUser(int userId)
+        {
+            var updatedUser = new User();
+            return updatedUser;
+        }
+
+        public User DeleteUser(int userId)
+        {
+            var deletedUser = new User();
+            return deletedUser;
         }
 
         public List<User> SelectAllUsers()
         {
             var users = new List<User>();
 
-            if (_databaseService.connection != null)
+            using (_connection)
             {
-                var query = "SELECT * FROM user";
-                var cmd = new MySqlCommand(query, _databaseService.connection);
-
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
+                if (_databaseService.connection != null)
                 {
-                    var newUser = new User()
-                    {
-                        userID = rdr.GetInt16(0),
-                        userName = rdr.GetString(1),
-                        password = rdr.GetString(2),
-                        active = rdr.GetInt32(3),
-                        createDate = rdr.GetDateTime(4),
-                        createdBy = rdr.GetString(5),
-                        lastUpdate = rdr.GetDateTime(6),
-                        lastUpdateBy = rdr.GetString(7)
 
-                    };
-                    users.Add(newUser);
+                    var query = "SELECT * FROM user";
+                    using (var cmd = new MySqlCommand(query, _databaseService.connection))
+                    {
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                var newUser = new User()
+                                {
+                                    userID = rdr.GetInt16(0),
+                                    userName = rdr.GetString(1),
+                                    password = rdr.GetString(2),
+                                    active = rdr.GetInt32(3),
+                                    createDate = rdr.GetDateTime(4),
+                                    createdBy = rdr.GetString(5),
+                                    lastUpdate = rdr.GetDateTime(6),
+                                    lastUpdateBy = rdr.GetString(7)
+                                };
+                                users.Add(newUser);
+                            }
+                            rdr.Close();
+                        }
+                    }
                 }
             }
+
             return users;
         }
     }
