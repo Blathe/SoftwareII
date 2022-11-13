@@ -10,6 +10,7 @@ namespace SoftwareII
     static class Program
     {
         public static DBConnectionService DBService;
+        public static LoggingService LoggingService;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -20,6 +21,7 @@ namespace SoftwareII
             Application.SetCompatibleTextRenderingDefault(false);
 
             DBService = new DBConnectionService();
+            LoggingService = new LoggingService();
 
             DBService.StartConnection();
             Application.Run(new LoginForm(DBService));

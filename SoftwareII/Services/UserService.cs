@@ -35,7 +35,11 @@ namespace SoftwareII.Services
                         {
                             if (rdr.GetString(2) == password)
                             {
+                                var UTCTime = DateTime.UtcNow;
+                                Program.LoggingService.CreateLog(string.Format("{0} - User '{1}' has logged in.", UTCTime, rdr.GetString(1)));
+
                                 rdr.Close();
+
                                 SchedulingManagerForm form = new SchedulingManagerForm(this);
                                 form.Show();
                                 loginForm.Hide();
