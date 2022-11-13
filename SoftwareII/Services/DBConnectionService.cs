@@ -10,7 +10,24 @@ namespace SoftwareII.Services
     public class DBConnectionService
     {
         public MySqlConnection connection { get; set; }
-        public UserService _userService;
+
+        public bool connectionOpen { 
+            get
+            {
+                return connection.State == System.Data.ConnectionState.Open ? true : false;
+            } 
+        }
+
+        public DBConnectionService()
+        {
+            StartConnection();
+        }
+        ~DBConnectionService()
+        {
+            Console.WriteLine("Connection closing...");
+            CloseConnection();
+        }
+
         public void StartConnection()
         {
             Console.WriteLine("DB Connection Service initializing...");
@@ -18,11 +35,8 @@ namespace SoftwareII.Services
             try
             {
                 connection = new MySqlConnection(connectionString);
-
-                connection.Open();
                 Console.WriteLine("DB connection opened!");
                 Console.WriteLine("Starting services...");
-                _userService = new UserService(this, connection);
 
             } catch (MySqlException ex)
             {
@@ -31,16 +45,43 @@ namespace SoftwareII.Services
             }
         }
 
-        public void CloseConnection()
+        public void CreateNewCustomer(string name, string address, string phone)
         {
-            if (connection != null)
+            if (!connectionOpen)
             {
-                connection.Close();
+                connection.Open();
+            }
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@customerName", name);
+                        cmd.Parameters.AddWithValue("@addressId", 1);
+                        cmd.Parameters.AddWithValue("@active", 1);
+                        cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.ExecuteNonQuery();
+                    }
+                } catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 
         public List<Customer> GetAllCustomers()
         {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
             var customers = new List<Customer>();
             using (connection)
             {
@@ -73,6 +114,15 @@ namespace SoftwareII.Services
                 lastUpdateBy = rdr.GetString(7)
             };
             return customer;
+        }
+
+
+        public void CloseConnection()
+        {
+            if (connection != null)
+            {
+                connection.Close();
+            }
         }
     }
 }

@@ -12,22 +12,23 @@ namespace SoftwareII.Services
 {
     public class UserService
     {
-        public DBConnectionService _databaseService;
-        private MySqlConnection _connection;
+        public string _activeUser;
 
-        public UserService(DBConnectionService databaseService, MySqlConnection connection)
+        public UserService()
         {
-            Console.WriteLine("User service initiated!");
-            _databaseService = databaseService;
-            _connection = connection;
         }
 
         public void AuthenticateUser(string username, string password, CultureInfo culture, LoginForm loginForm)
         {
-            using (_connection)
+            if (!Program.DBService.connectionOpen)
+            {
+                Program.DBService.connection.Open(); ;
+            }
+
+            using (Program.DBService.connection)
             {
                 var query = string.Format("SELECT * FROM user WHERE userName='{0}'", username);
-                using (var cmd = new MySqlCommand(query, _databaseService.connection))
+                using (var cmd = new MySqlCommand(query, Program.DBService.connection))
                 {
                     using (var rdr = cmd.ExecuteReader())
                     {
@@ -43,6 +44,7 @@ namespace SoftwareII.Services
                                 SchedulingManagerForm form = new SchedulingManagerForm();
                                 form.Show();
                                 loginForm.Hide();
+                                _activeUser = username;
                                 return;
                             }
                             else

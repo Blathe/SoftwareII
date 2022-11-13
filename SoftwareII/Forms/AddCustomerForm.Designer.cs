@@ -29,35 +29,35 @@ namespace SoftwareII.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.customerNameTextbox = new System.Windows.Forms.TextBox();
+            this.customerPhoneTextbox = new System.Windows.Forms.TextBox();
+            this.customerAddressTextbox = new System.Windows.Forms.TextBox();
             this.confirmButton = new System.Windows.Forms.Button();
             this.customerNameLabel = new System.Windows.Forms.Label();
             this.customerPhoneLabel = new System.Windows.Forms.Label();
             this.customerAddressLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // customerNameTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(53, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 20);
-            this.textBox1.TabIndex = 0;
+            this.customerNameTextbox.Location = new System.Drawing.Point(53, 66);
+            this.customerNameTextbox.Name = "customerNameTextbox";
+            this.customerNameTextbox.Size = new System.Drawing.Size(227, 20);
+            this.customerNameTextbox.TabIndex = 0;
             // 
-            // textBox2
+            // customerPhoneTextbox
             // 
-            this.textBox2.Location = new System.Drawing.Point(53, 119);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(227, 20);
-            this.textBox2.TabIndex = 1;
+            this.customerPhoneTextbox.Location = new System.Drawing.Point(53, 119);
+            this.customerPhoneTextbox.Name = "customerPhoneTextbox";
+            this.customerPhoneTextbox.Size = new System.Drawing.Size(227, 20);
+            this.customerPhoneTextbox.TabIndex = 1;
             // 
-            // textBox3
+            // customerAddressTextbox
             // 
-            this.textBox3.Location = new System.Drawing.Point(53, 171);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(227, 20);
-            this.textBox3.TabIndex = 2;
+            this.customerAddressTextbox.Location = new System.Drawing.Point(53, 171);
+            this.customerAddressTextbox.Name = "customerAddressTextbox";
+            this.customerAddressTextbox.Size = new System.Drawing.Size(227, 20);
+            this.customerAddressTextbox.TabIndex = 2;
             // 
             // confirmButton
             // 
@@ -68,6 +68,7 @@ namespace SoftwareII.Forms
             this.confirmButton.TabIndex = 3;
             this.confirmButton.Text = "Confirm";
             this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
             // customerNameLabel
             // 
@@ -105,9 +106,9 @@ namespace SoftwareII.Forms
             this.Controls.Add(this.customerPhoneLabel);
             this.Controls.Add(this.customerNameLabel);
             this.Controls.Add(this.confirmButton);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.customerAddressTextbox);
+            this.Controls.Add(this.customerPhoneTextbox);
+            this.Controls.Add(this.customerNameTextbox);
             this.Name = "AddCustomerForm";
             this.Padding = new System.Windows.Forms.Padding(50);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -120,9 +121,9 @@ namespace SoftwareII.Forms
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox customerNameTextbox;
+        private System.Windows.Forms.TextBox customerPhoneTextbox;
+        private System.Windows.Forms.TextBox customerAddressTextbox;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Label customerNameLabel;
         private System.Windows.Forms.Label customerPhoneLabel;

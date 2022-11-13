@@ -7,16 +7,14 @@ namespace SoftwareII
 {
     public partial class LoginForm : Form
     {
-        public DBConnectionService _databaseService;
         public CultureInfo _culture;
 
         public string _unsupportedLanguageError = "System language is unsupported. (try English or German)";
 
-        public LoginForm(DBConnectionService dbService)
+        public LoginForm()
         {
             InitializeComponent();
 
-            _databaseService = dbService;
 
             //For testing
             // _culture = new CultureInfo("de-DE");
@@ -26,7 +24,7 @@ namespace SoftwareII
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            if (_databaseService.connection != null)
+            if (Program.DBService.connection != null)
             {
                 var username = usernameBox.Text.Trim();
                 var password = passwordBox.Text.Trim();
@@ -65,7 +63,7 @@ namespace SoftwareII
                     return;
                 }
 
-                _databaseService._userService.AuthenticateUser(username, password, _culture, this);
+                Program.UserService.AuthenticateUser(username, password, _culture, this);
             }
         }
     }
