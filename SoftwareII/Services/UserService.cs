@@ -40,7 +40,7 @@ namespace SoftwareII.Services
 
                                 rdr.Close();
 
-                                SchedulingManagerForm form = new SchedulingManagerForm(this);
+                                SchedulingManagerForm form = new SchedulingManagerForm();
                                 form.Show();
                                 loginForm.Hide();
                                 return;

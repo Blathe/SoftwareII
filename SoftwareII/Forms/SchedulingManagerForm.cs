@@ -9,17 +9,13 @@ namespace SoftwareII.Forms
 {
     public partial class SchedulingManagerForm : Form
     {
-        private UserService _userService;
-        private List<User> _allUsers;
         private List<Customer> _allCustomers;
         private List<Appointment> _allAppointments;
         public CultureInfo _culture;
 
-        public SchedulingManagerForm(UserService userService)
+        public SchedulingManagerForm()
         {
             InitializeComponent();
-
-            _userService = userService;
             _culture = CultureInfo.CurrentCulture;
 
             localeLabel.Text = string.Format("Locale: {0}", _culture.Name);
@@ -31,6 +27,22 @@ namespace SoftwareII.Forms
         {
             _allCustomers = Program.DBService.GetAllCustomers();
             customerDataGrid.DataSource = _allCustomers;
+        }
+
+        private void addCustomerButton_Click(object sender, EventArgs e)
+        {
+            var addCustomerForm = new AddCustomerForm();
+            addCustomerForm.Show();
+        }
+
+        private void updateCustomerButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteCustomerButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
