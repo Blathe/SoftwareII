@@ -46,6 +46,33 @@ namespace SoftwareII.Services
             }
         }
 
+        internal void DeleteUser(int customerID)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "DELETE FROM customer WHERE customerId=@customerId";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@customerId", customerID);
+                        cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                        MessageBox.Show("Success! User has been deleted.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
+
         public void CreateNewCustomer(string name, string address, string phone)
         {
             if (!connectionOpen)
@@ -69,6 +96,7 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
                         cmd.ExecuteNonQuery();
                         Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                        MessageBox.Show("Success! User has been added.");
                     }
                 } catch (Exception e)
                 {

@@ -42,7 +42,13 @@ namespace SoftwareII.Forms
 
         private void deleteCustomerButton_Click(object sender, EventArgs e)
         {
-
+            if (customerDataGrid.SelectedRows.Count > 0)
+            {
+                for (int i = 0; i < customerDataGrid.SelectedRows.Count; i++)
+                {
+                    Program.DBService.DeleteUser((int)customerDataGrid.SelectedRows[i].Cells["customerId"].Value);
+                }
+            }
         }
 
         public void RefreshData()
