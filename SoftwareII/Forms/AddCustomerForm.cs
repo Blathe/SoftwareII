@@ -31,6 +31,7 @@ namespace SoftwareII.Forms
             }
 
             Program.DBService.CreateNewCustomer(name, address, phone);
+            this.Close();
         }
     }
 }

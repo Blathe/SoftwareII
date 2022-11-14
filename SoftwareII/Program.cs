@@ -12,6 +12,7 @@ namespace SoftwareII
         public static DBConnectionService DBService;
         public static LoggingService LoggingService;
         public static UserService UserService;
+        public static FormService FormService;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -24,6 +25,7 @@ namespace SoftwareII
             DBService = new DBConnectionService();
             LoggingService = new LoggingService();
             UserService = new UserService();
+            FormService = new FormService();
 
             Application.Run(new LoginForm());
         }

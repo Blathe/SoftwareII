@@ -44,5 +44,10 @@ namespace SoftwareII.Forms
         {
 
         }
+
+        public void RefreshData()
+        {
+            customerDataGrid.Refresh();
+        }
     }
 }

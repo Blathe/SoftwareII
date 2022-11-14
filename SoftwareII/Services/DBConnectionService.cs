@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using SoftwareII.Models;
 using System;
+using SoftwareII.Forms;
 
 namespace SoftwareII.Services
 {
@@ -67,6 +68,7 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
                         cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
                         cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.LoadAllCustomers();
                     }
                 } catch (Exception e)
                 {

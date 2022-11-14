@@ -42,6 +42,7 @@ namespace SoftwareII.Services
                                 rdr.Close();
 
                                 SchedulingManagerForm form = new SchedulingManagerForm();
+                                Program.FormService._schedulingManagerForm = form;
                                 form.Show();
                                 loginForm.Hide();
                                 _activeUser = username;
