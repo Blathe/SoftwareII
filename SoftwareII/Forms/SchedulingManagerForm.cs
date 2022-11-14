@@ -10,7 +10,6 @@ namespace SoftwareII.Forms
     public partial class SchedulingManagerForm : Form
     {
         private List<Customer> _allCustomers;
-        private List<Appointment> _allAppointments;
         public CultureInfo _culture;
 
         public SchedulingManagerForm()
@@ -37,7 +36,11 @@ namespace SoftwareII.Forms
 
         private void updateCustomerButton_Click(object sender, EventArgs e)
         {
-
+            if (customerDataGrid.SelectedRows.Count > 0)
+            {
+                UpdateUserForm form = new UpdateUserForm(Program.DBService.GetSingleCustomer((int)customerDataGrid.SelectedRows[0].Cells["customerId"].Value));
+                form.Show();
+            }
         }
 
         private void deleteCustomerButton_Click(object sender, EventArgs e)
@@ -46,7 +49,7 @@ namespace SoftwareII.Forms
             {
                 for (int i = 0; i < customerDataGrid.SelectedRows.Count; i++)
                 {
-                    Program.DBService.DeleteUser((int)customerDataGrid.SelectedRows[i].Cells["customerId"].Value);
+                    Program.DBService.DeleteCustomer((int)customerDataGrid.SelectedRows[i].Cells["customerId"].Value);
                 }
             }
         }

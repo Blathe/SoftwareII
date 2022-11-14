@@ -46,7 +46,7 @@ namespace SoftwareII.Services
             }
         }
 
-        internal void DeleteUser(int customerID)
+        public void DeleteCustomer(int customerID)
         {
             if (!connectionOpen)
             {
@@ -128,6 +128,33 @@ namespace SoftwareII.Services
                 }
             }
             return customers;
+        }
+
+        public Customer GetSingleCustomer(int customerID)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var customer = new Customer();
+
+            using (connection)
+            {
+                var query = "SELECT * FROM customer WHERE customerId=@customerId";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@customerId", customerID);
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            customer = DBToCustomer(rdr);
+                        }
+                    }
+                }
+            }
+            return customer;
         }
 
         public Customer DBToCustomer(MySqlDataReader rdr)
