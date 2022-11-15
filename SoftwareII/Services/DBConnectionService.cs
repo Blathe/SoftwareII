@@ -173,6 +173,55 @@ namespace SoftwareII.Services
             return customer;
         }
 
+        public Appointment DBToAppointment(MySqlDataReader rdr)
+        {
+            var appointment = new Appointment()
+            {
+                appointmentId = rdr.GetInt32(0),
+                customerId = rdr.GetInt32(1),
+                userId = rdr.GetInt32(2),
+                title = rdr.GetString(3),
+                description = rdr.GetString(4),
+                location = rdr.GetString(5),
+                contact = rdr.GetString(6),
+                type = rdr.GetString(7),
+                url = rdr.GetString(8),
+                start = rdr.GetDateTime(9),
+                end = rdr.GetDateTime(10),
+                createDate = rdr.GetDateTime(11),
+                createdBy = rdr.GetString(12),
+                lastUpdate = rdr.GetDateTime(13),
+                lastUpdateBy = rdr.GetString(14),
+            };
+            return appointment;
+        }
+
+        public List<Appointment> GetAllAppointments()
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var appointments = new List<Appointment>();
+
+            using (connection)
+            {
+                var query = "SELECT * FROM appointment";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            appointments.Add(DBToAppointment(rdr));
+                        }
+                    }
+                }
+            }
+            return appointments;
+        }
+
 
         public void CloseConnection()
         {

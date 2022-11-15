@@ -10,6 +10,7 @@ namespace SoftwareII.Forms
     public partial class SchedulingManagerForm : Form
     {
         private List<Customer> _allCustomers;
+        private List<Appointment> _allAppointments;
         public CultureInfo _culture;
 
         public SchedulingManagerForm()
@@ -20,6 +21,7 @@ namespace SoftwareII.Forms
             localeLabel.Text = string.Format("Locale: {0}", _culture.Name);
 
             LoadAllCustomers();
+            LoadAllAppointments();
         }
 
         public void LoadAllCustomers()
@@ -28,6 +30,11 @@ namespace SoftwareII.Forms
             customerDataGrid.DataSource = _allCustomers;
         }
 
+        public void LoadAllAppointments()
+        {
+            _allAppointments = Program.DBService.GetAllAppointments();
+            appointmentDatagrid.DataSource = _allAppointments;
+        }
         private void addCustomerButton_Click(object sender, EventArgs e)
         {
             var addCustomerForm = new AddCustomerForm();
