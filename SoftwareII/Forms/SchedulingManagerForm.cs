@@ -65,5 +65,10 @@ namespace SoftwareII.Forms
         {
             customerDataGrid.Refresh();
         }
+
+        private void SchedulingManagerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

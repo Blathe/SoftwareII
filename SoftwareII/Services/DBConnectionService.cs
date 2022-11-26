@@ -105,6 +105,38 @@ namespace SoftwareII.Services
             }
         }
 
+        public void UpdateCustomer(int customerId, int addressId, string name, string address, string phone)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            try
+            {
+                var query = "UPDATE customer, address " +
+                    "SET customer.customerName=@customerName, customer.lastUpdate=@lastUpdate, customer.lastUpdateBy=@lastUpdateBy, address.address=@address, address.phone=@phone " +
+                    "WHERE customer.customerId=@customerId AND address.addressId=@addressId";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@customerId", customerId);
+                    cmd.Parameters.AddWithValue("@addressId", addressId);
+                    cmd.Parameters.AddWithValue("@customerName", name);
+                    cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                    cmd.Parameters.AddWithValue("@address", address);
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                    cmd.ExecuteNonQuery();
+                    Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                    MessageBox.Show("Success! Customer has been updated.");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
         public List<Customer> GetAllCustomers()
         {
             if (!connectionOpen)
@@ -141,7 +173,8 @@ namespace SoftwareII.Services
 
             using (connection)
             {
-                var query = "SELECT * FROM customer WHERE customerId=@customerId";
+                var query = "SELECT * FROM customer " +
+                    "WHERE customerId=@customerId";
                 using (var cmd = new MySqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@customerId", customerID);
@@ -196,6 +229,25 @@ namespace SoftwareII.Services
             return appointment;
         }
 
+        public Address DBToAddress(MySqlDataReader rdr)
+        {
+            var address = new Address()
+            {
+                addressId = rdr.GetInt32(0),
+                address = rdr.GetString(1),
+                address2 = rdr.GetString(2),
+                cityId = rdr.GetInt32(3),
+                postalCode = rdr.GetString(4),
+                phone = rdr.GetString(5),
+                createDate = rdr.GetDateTime(6),
+                createdBy = rdr.GetString(7),
+                lastUpdate = rdr.GetDateTime(8),
+                lastUpdateBy = rdr.GetString(9),
+            };
+
+            return address;
+        }
+
         public List<Appointment> GetAllAppointments()
         {
             if (!connectionOpen)
@@ -221,6 +273,34 @@ namespace SoftwareII.Services
             }
             return appointments;
         }
+
+        public Address GetAddressByID(int id)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var address = new Address();
+
+            using (connection)
+            {
+                var query = string.Format("SELECT * FROM address " +
+                    "WHERE addressId={0}", id);
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            address = DBToAddress(rdr);
+                        }
+                    }
+                }
+            }
+            return address;
+        }
+
 
 
         public void CloseConnection()

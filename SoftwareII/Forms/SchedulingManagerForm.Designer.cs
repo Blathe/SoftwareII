@@ -37,6 +37,9 @@
             this.customerDataGrid = new System.Windows.Forms.DataGridView();
             this.allAppointmentsLabel = new System.Windows.Forms.Label();
             this.appointmentDatagrid = new System.Windows.Forms.DataGridView();
+            this.addAppointmentButton = new System.Windows.Forms.Button();
+            this.updateAppointmentButton = new System.Windows.Forms.Button();
+            this.deleteAppointmentButton = new System.Windows.Forms.Button();
             this.appointmentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,9 +59,6 @@
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.addAppointmentButton = new System.Windows.Forms.Button();
-            this.updateAppointmentButton = new System.Windows.Forms.Button();
-            this.deleteAppointmentButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
@@ -174,6 +174,36 @@
             this.appointmentDatagrid.Size = new System.Drawing.Size(1363, 332);
             this.appointmentDatagrid.TabIndex = 9;
             // 
+            // addAppointmentButton
+            // 
+            this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addAppointmentButton.Location = new System.Drawing.Point(23, 758);
+            this.addAppointmentButton.Name = "addAppointmentButton";
+            this.addAppointmentButton.Size = new System.Drawing.Size(165, 36);
+            this.addAppointmentButton.TabIndex = 10;
+            this.addAppointmentButton.Text = "Add Appointment";
+            this.addAppointmentButton.UseVisualStyleBackColor = true;
+            // 
+            // updateAppointmentButton
+            // 
+            this.updateAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateAppointmentButton.Location = new System.Drawing.Point(194, 758);
+            this.updateAppointmentButton.Name = "updateAppointmentButton";
+            this.updateAppointmentButton.Size = new System.Drawing.Size(165, 36);
+            this.updateAppointmentButton.TabIndex = 11;
+            this.updateAppointmentButton.Text = "Update Appointment";
+            this.updateAppointmentButton.UseVisualStyleBackColor = true;
+            // 
+            // deleteAppointmentButton
+            // 
+            this.deleteAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteAppointmentButton.Location = new System.Drawing.Point(1221, 758);
+            this.deleteAppointmentButton.Name = "deleteAppointmentButton";
+            this.deleteAppointmentButton.Size = new System.Drawing.Size(165, 36);
+            this.deleteAppointmentButton.TabIndex = 12;
+            this.deleteAppointmentButton.Text = "Delete Appointment";
+            this.deleteAppointmentButton.UseVisualStyleBackColor = true;
+            // 
             // appointmentIdDataGridViewTextBoxColumn
             // 
             this.appointmentIdDataGridViewTextBoxColumn.DataPropertyName = "appointmentId";
@@ -280,36 +310,6 @@
             // 
             this.userBindingSource2.DataSource = typeof(SoftwareII.Models.User);
             // 
-            // addAppointmentButton
-            // 
-            this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addAppointmentButton.Location = new System.Drawing.Point(23, 758);
-            this.addAppointmentButton.Name = "addAppointmentButton";
-            this.addAppointmentButton.Size = new System.Drawing.Size(165, 36);
-            this.addAppointmentButton.TabIndex = 10;
-            this.addAppointmentButton.Text = "Add Appointment";
-            this.addAppointmentButton.UseVisualStyleBackColor = true;
-            // 
-            // updateAppointmentButton
-            // 
-            this.updateAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateAppointmentButton.Location = new System.Drawing.Point(194, 758);
-            this.updateAppointmentButton.Name = "updateAppointmentButton";
-            this.updateAppointmentButton.Size = new System.Drawing.Size(165, 36);
-            this.updateAppointmentButton.TabIndex = 11;
-            this.updateAppointmentButton.Text = "Update Appointment";
-            this.updateAppointmentButton.UseVisualStyleBackColor = true;
-            // 
-            // deleteAppointmentButton
-            // 
-            this.deleteAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteAppointmentButton.Location = new System.Drawing.Point(1221, 758);
-            this.deleteAppointmentButton.Name = "deleteAppointmentButton";
-            this.deleteAppointmentButton.Size = new System.Drawing.Size(165, 36);
-            this.deleteAppointmentButton.TabIndex = 12;
-            this.deleteAppointmentButton.Text = "Delete Appointment";
-            this.deleteAppointmentButton.UseVisualStyleBackColor = true;
-            // 
             // SchedulingManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,6 +330,7 @@
             this.Padding = new System.Windows.Forms.Padding(20);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scheduling Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SchedulingManagerForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();

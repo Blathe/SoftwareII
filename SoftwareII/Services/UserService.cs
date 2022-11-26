@@ -13,6 +13,7 @@ namespace SoftwareII.Services
     public class UserService
     {
         public string _activeUser;
+        public CultureInfo _culture;
 
         public UserService()
         {
@@ -20,6 +21,8 @@ namespace SoftwareII.Services
 
         public void AuthenticateUser(string username, string password, CultureInfo culture, LoginForm loginForm)
         {
+            _culture = culture;
+
             if (!Program.DBService.connectionOpen)
             {
                 Program.DBService.connection.Open(); ;
@@ -32,6 +35,10 @@ namespace SoftwareII.Services
                 {
                     using (var rdr = cmd.ExecuteReader())
                     {
+                        if (!rdr.HasRows) {
+                            ShowInvalidUserError();
+                            return;
+                        }
                         while (rdr.Read())
                         {
                             if (rdr.GetString(2) == password)
@@ -50,24 +57,30 @@ namespace SoftwareII.Services
                             }
                             else
                             {
-                                switch (culture.Name)
-                                {
-                                    case "en-US":
-                                        MessageBox.Show("Username or password is invalid.");
-                                        break;
-                                    case "de-DE":
-                                        MessageBox.Show("Benutzername oder Passwort ist ungültig.");
-                                        break;
-                                    default:
-                                        MessageBox.Show("Language is unsupported. (Try English or German.");
-                                        break;
-                                }
+                                ShowInvalidUserError();
                                 return;
                             }
                         }
                     }
                 }
             }
+        }
+
+        void ShowInvalidUserError()
+        {
+            switch (_culture.Name)
+            {
+                case "en-US":
+                    MessageBox.Show("Username or password is invalid.");
+                    break;
+                case "de-DE":
+                    MessageBox.Show("Benutzername oder Passwort ist ungültig.");
+                    break;
+                default:
+                    MessageBox.Show("Language is unsupported. (Try English or German.");
+                    break;
+            }
+            return;
         }
     }
 }
