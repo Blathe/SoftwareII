@@ -36,6 +36,10 @@ namespace SoftwareII.Forms
             this.customerNameLabel = new System.Windows.Forms.Label();
             this.customerPhoneLabel = new System.Windows.Forms.Label();
             this.customerAddressLabel = new System.Windows.Forms.Label();
+            this.customerCityLabel = new System.Windows.Forms.Label();
+            this.customerCityTextbox = new System.Windows.Forms.TextBox();
+            this.customerCountryLabel = new System.Windows.Forms.Label();
+            this.customerCountryTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // customerNameTextbox
@@ -62,7 +66,7 @@ namespace SoftwareII.Forms
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmButton.Location = new System.Drawing.Point(175, 257);
+            this.confirmButton.Location = new System.Drawing.Point(175, 337);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(105, 35);
             this.confirmButton.TabIndex = 3;
@@ -97,11 +101,47 @@ namespace SoftwareII.Forms
             this.customerAddressLabel.TabIndex = 6;
             this.customerAddressLabel.Text = "Customer Address";
             // 
+            // customerCityLabel
+            // 
+            this.customerCityLabel.AutoSize = true;
+            this.customerCityLabel.Location = new System.Drawing.Point(50, 207);
+            this.customerCityLabel.Name = "customerCityLabel";
+            this.customerCityLabel.Size = new System.Drawing.Size(71, 13);
+            this.customerCityLabel.TabIndex = 8;
+            this.customerCityLabel.Text = "Customer City";
+            // 
+            // customerCityTextbox
+            // 
+            this.customerCityTextbox.Location = new System.Drawing.Point(53, 223);
+            this.customerCityTextbox.Name = "customerCityTextbox";
+            this.customerCityTextbox.Size = new System.Drawing.Size(227, 20);
+            this.customerCityTextbox.TabIndex = 7;
+            // 
+            // customerCountryLabel
+            // 
+            this.customerCountryLabel.AutoSize = true;
+            this.customerCountryLabel.Location = new System.Drawing.Point(51, 256);
+            this.customerCountryLabel.Name = "customerCountryLabel";
+            this.customerCountryLabel.Size = new System.Drawing.Size(90, 13);
+            this.customerCountryLabel.TabIndex = 10;
+            this.customerCountryLabel.Text = "Customer Country";
+            // 
+            // customerCountryTextbox
+            // 
+            this.customerCountryTextbox.Location = new System.Drawing.Point(54, 272);
+            this.customerCountryTextbox.Name = "customerCountryTextbox";
+            this.customerCountryTextbox.Size = new System.Drawing.Size(227, 20);
+            this.customerCountryTextbox.TabIndex = 9;
+            // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 345);
+            this.ClientSize = new System.Drawing.Size(333, 425);
+            this.Controls.Add(this.customerCountryLabel);
+            this.Controls.Add(this.customerCountryTextbox);
+            this.Controls.Add(this.customerCityLabel);
+            this.Controls.Add(this.customerCityTextbox);
             this.Controls.Add(this.customerAddressLabel);
             this.Controls.Add(this.customerPhoneLabel);
             this.Controls.Add(this.customerNameLabel);
@@ -128,5 +168,9 @@ namespace SoftwareII.Forms
         private System.Windows.Forms.Label customerNameLabel;
         private System.Windows.Forms.Label customerPhoneLabel;
         private System.Windows.Forms.Label customerAddressLabel;
+        private System.Windows.Forms.Label customerCityLabel;
+        private System.Windows.Forms.TextBox customerCityTextbox;
+        private System.Windows.Forms.Label customerCountryLabel;
+        private System.Windows.Forms.TextBox customerCountryTextbox;
     }
 }

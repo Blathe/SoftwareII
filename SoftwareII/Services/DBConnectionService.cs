@@ -53,27 +53,49 @@ namespace SoftwareII.Services
                 connection.Open();
             }
 
-            using (connection)
+            var confirmResult = MessageBox.Show("Are you sure you want to delete this customer? It will also delete all appointments and data related to this customer.", "Delete Customer?", MessageBoxButtons.YesNo);
+
+            if (confirmResult == DialogResult.Yes)
             {
-                try
+                using (connection)
                 {
-                    var query = "DELETE FROM customer WHERE customerId=@customerId";
-                    using (var cmd = new MySqlCommand(query, connection))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@customerId", customerID);
-                        cmd.ExecuteNonQuery();
-                        Program.FormService._schedulingManagerForm.LoadAllCustomers();
-                        MessageBox.Show("Success! User has been deleted.");
+                        var appointmentQuery = "DELETE FROM appointment WHERE appointment.customerId = @customerId";
+                        using (var cmd = new MySqlCommand(appointmentQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@customerId", customerID);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        var query = "DELETE customer, address, city, country " +
+                            "FROM customer " +
+                            "INNER JOIN address ON address.addressId = customer.addressId " +
+                            "INNER JOIN city ON city.cityId = address.cityId " +
+                            "INNER JOIN country ON country.countryId = city.countryId " +
+                            "WHERE customer.customerId=@customerId";
+                        
+                        using (var cmd = new MySqlCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@customerId", customerID);
+                            cmd.ExecuteNonQuery();
+                            Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                            MessageBox.Show("Success! User has been deleted.");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
                     }
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+            }
+            else
+            {
+                // If 'No', do something here.
             }
         }
 
-        public void CreateNewCustomer(string name, string address, string phone)
+        public void CreateNewCustomer(string name, string address, string phone, string city, string country)
         {
             if (!connectionOpen)
             {
@@ -84,11 +106,61 @@ namespace SoftwareII.Services
             {
                 try
                 {
-                    var query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    long PK = 0;
+
+                    var countryQuery = "INSERT INTO country (country, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                                            "VALUES (@country, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    using (var cmd = new MySqlCommand(countryQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@country", country);
+                        cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.ExecuteNonQuery();
+                        PK = cmd.LastInsertedId;
+                    }
+
+                    var cityQuery = "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                                        "VALUES (@city, @countryId, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+
+                    using (var cmd = new MySqlCommand(cityQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@city", city);
+                        cmd.Parameters.AddWithValue("@countryId", PK);
+                        cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.ExecuteNonQuery();
+                        PK = cmd.LastInsertedId;
+                    }
+
+                    var addressQuery = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                                            "VALUES (@address, @address2, @cityId, @postalCode, @phone, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+
+                    using (var cmd = new MySqlCommand(addressQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.Parameters.AddWithValue("@cityId", PK);
+                        cmd.Parameters.AddWithValue("@address2", "NULL");
+                        cmd.Parameters.AddWithValue("@postalCode", "11111");
+                        cmd.Parameters.AddWithValue("@phone", phone);
+                        cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.ExecuteNonQuery();
+                        PK = cmd.LastInsertedId;
+                    }
+
+                    var query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                                    "VALUES (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+
                     using (var cmd = new MySqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@customerName", name);
-                        cmd.Parameters.AddWithValue("@addressId", 1);
+                        cmd.Parameters.AddWithValue("@addressId", PK);
                         cmd.Parameters.AddWithValue("@active", 1);
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
                         cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
