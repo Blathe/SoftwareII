@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using SoftwareII.Models;
+using SoftwareII.Services;
 
 namespace SoftwareII.Forms
 {
@@ -12,6 +13,8 @@ namespace SoftwareII.Forms
         public List<User> _allUsers;
 
         public int _timePickerCurrentMinute;
+
+        public DateTime _selectedTime;
 
         public AddAppointmentForm()
         {
@@ -26,7 +29,7 @@ namespace SoftwareII.Forms
         private void PopulateCustomerSelectBox()
         {
             _allCustomers = Program.DBService.GetAllCustomers();
-            customerSelectBox.Items.AddRange(_allCustomers.ToArray());
+            customerSelectBox.DataSource = _allCustomers;
             customerSelectBox.DisplayMember = "customerName";
             customerSelectBox.ValueMember = "customerId";
         }
@@ -66,6 +69,46 @@ namespace SoftwareII.Forms
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void confirmButton_Click(object sender, EventArgs e)
+        {
+            _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second);
+
+
+            if (formValid())
+            {
+                var customerId = (int)customerSelectBox.SelectedValue;
+                var userId = 1; //TODO hardcoded for now
+                Program.DBService.CreateNewAppointment(customerId, userId, appointmentTypeSelect.Text, _selectedTime, _selectedTime.AddMinutes(29));
+            }
+        }
+
+        private bool formValid()
+        {
+            if (customerSelectBox.Text == "" || userSelectBox.Text == "" || appointmentTypeSelect.Text == "")
+                return false;
+
+            var customerId = Program.DBService.GetSingleCustomer((int)customerSelectBox.SelectedValue);
+
+            if (customerId == null)
+            {
+                Console.WriteLine("That customer doesn't exist.");
+                return false;
+            }
+
+            //TODO
+            //var user = Program.DBService.GetSingleUser();
+
+            if (AppointmentService.DoAppointmentsOverlap(_selectedTime))
+                return false;
+
+            return true;
+        }
+
+        private bool AppointmentOverlaps()
+        {
+            return false;
         }
     }
 }

@@ -40,26 +40,11 @@
             this.addAppointmentButton = new System.Windows.Forms.Button();
             this.updateAppointmentButton = new System.Windows.Forms.Button();
             this.deleteAppointmentButton = new System.Windows.Forms.Button();
-            this.appointmentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.urlDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastUpdateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastUpdateByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
@@ -129,6 +114,7 @@
             this.customerDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.customerDataGrid.Location = new System.Drawing.Point(23, 36);
             this.customerDataGrid.Name = "customerDataGrid";
+            this.customerDataGrid.ReadOnly = true;
             this.customerDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.customerDataGrid.ShowEditingIcon = false;
             this.customerDataGrid.Size = new System.Drawing.Size(844, 237);
@@ -148,28 +134,11 @@
             // 
             this.appointmentDatagrid.AllowUserToAddRows = false;
             this.appointmentDatagrid.AllowUserToDeleteRows = false;
-            this.appointmentDatagrid.AutoGenerateColumns = false;
             this.appointmentDatagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.appointmentDatagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.appointmentIdDataGridViewTextBoxColumn,
-            this.customerIdDataGridViewTextBoxColumn,
-            this.userIdDataGridViewTextBoxColumn,
-            this.titleDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn,
-            this.locationDataGridViewTextBoxColumn,
-            this.contactDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
-            this.urlDataGridViewTextBoxColumn,
-            this.startDataGridViewTextBoxColumn,
-            this.endDataGridViewTextBoxColumn,
-            this.createDateDataGridViewTextBoxColumn,
-            this.createdByDataGridViewTextBoxColumn,
-            this.lastUpdateDataGridViewTextBoxColumn,
-            this.lastUpdateByDataGridViewTextBoxColumn});
-            this.appointmentDatagrid.DataSource = this.appointmentBindingSource;
             this.appointmentDatagrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.appointmentDatagrid.Location = new System.Drawing.Point(23, 420);
             this.appointmentDatagrid.Name = "appointmentDatagrid";
+            this.appointmentDatagrid.ReadOnly = true;
             this.appointmentDatagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.appointmentDatagrid.ShowEditingIcon = false;
             this.appointmentDatagrid.Size = new System.Drawing.Size(1363, 332);
@@ -205,96 +174,7 @@
             this.deleteAppointmentButton.TabIndex = 12;
             this.deleteAppointmentButton.Text = "Delete Appointment";
             this.deleteAppointmentButton.UseVisualStyleBackColor = true;
-            // 
-            // appointmentIdDataGridViewTextBoxColumn
-            // 
-            this.appointmentIdDataGridViewTextBoxColumn.DataPropertyName = "appointmentId";
-            this.appointmentIdDataGridViewTextBoxColumn.HeaderText = "appointmentId";
-            this.appointmentIdDataGridViewTextBoxColumn.Name = "appointmentIdDataGridViewTextBoxColumn";
-            // 
-            // customerIdDataGridViewTextBoxColumn
-            // 
-            this.customerIdDataGridViewTextBoxColumn.DataPropertyName = "customerId";
-            this.customerIdDataGridViewTextBoxColumn.HeaderText = "customerId";
-            this.customerIdDataGridViewTextBoxColumn.Name = "customerIdDataGridViewTextBoxColumn";
-            // 
-            // userIdDataGridViewTextBoxColumn
-            // 
-            this.userIdDataGridViewTextBoxColumn.DataPropertyName = "userId";
-            this.userIdDataGridViewTextBoxColumn.HeaderText = "userId";
-            this.userIdDataGridViewTextBoxColumn.Name = "userIdDataGridViewTextBoxColumn";
-            // 
-            // titleDataGridViewTextBoxColumn
-            // 
-            this.titleDataGridViewTextBoxColumn.DataPropertyName = "title";
-            this.titleDataGridViewTextBoxColumn.HeaderText = "title";
-            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // locationDataGridViewTextBoxColumn
-            // 
-            this.locationDataGridViewTextBoxColumn.DataPropertyName = "location";
-            this.locationDataGridViewTextBoxColumn.HeaderText = "location";
-            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
-            // 
-            // contactDataGridViewTextBoxColumn
-            // 
-            this.contactDataGridViewTextBoxColumn.DataPropertyName = "contact";
-            this.contactDataGridViewTextBoxColumn.HeaderText = "contact";
-            this.contactDataGridViewTextBoxColumn.Name = "contactDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            // 
-            // urlDataGridViewTextBoxColumn
-            // 
-            this.urlDataGridViewTextBoxColumn.DataPropertyName = "url";
-            this.urlDataGridViewTextBoxColumn.HeaderText = "url";
-            this.urlDataGridViewTextBoxColumn.Name = "urlDataGridViewTextBoxColumn";
-            // 
-            // startDataGridViewTextBoxColumn
-            // 
-            this.startDataGridViewTextBoxColumn.DataPropertyName = "start";
-            this.startDataGridViewTextBoxColumn.HeaderText = "start";
-            this.startDataGridViewTextBoxColumn.Name = "startDataGridViewTextBoxColumn";
-            // 
-            // endDataGridViewTextBoxColumn
-            // 
-            this.endDataGridViewTextBoxColumn.DataPropertyName = "end";
-            this.endDataGridViewTextBoxColumn.HeaderText = "end";
-            this.endDataGridViewTextBoxColumn.Name = "endDataGridViewTextBoxColumn";
-            // 
-            // createDateDataGridViewTextBoxColumn
-            // 
-            this.createDateDataGridViewTextBoxColumn.DataPropertyName = "createDate";
-            this.createDateDataGridViewTextBoxColumn.HeaderText = "createDate";
-            this.createDateDataGridViewTextBoxColumn.Name = "createDateDataGridViewTextBoxColumn";
-            // 
-            // createdByDataGridViewTextBoxColumn
-            // 
-            this.createdByDataGridViewTextBoxColumn.DataPropertyName = "createdBy";
-            this.createdByDataGridViewTextBoxColumn.HeaderText = "createdBy";
-            this.createdByDataGridViewTextBoxColumn.Name = "createdByDataGridViewTextBoxColumn";
-            // 
-            // lastUpdateDataGridViewTextBoxColumn
-            // 
-            this.lastUpdateDataGridViewTextBoxColumn.DataPropertyName = "lastUpdate";
-            this.lastUpdateDataGridViewTextBoxColumn.HeaderText = "lastUpdate";
-            this.lastUpdateDataGridViewTextBoxColumn.Name = "lastUpdateDataGridViewTextBoxColumn";
-            // 
-            // lastUpdateByDataGridViewTextBoxColumn
-            // 
-            this.lastUpdateByDataGridViewTextBoxColumn.DataPropertyName = "lastUpdateBy";
-            this.lastUpdateByDataGridViewTextBoxColumn.HeaderText = "lastUpdateBy";
-            this.lastUpdateByDataGridViewTextBoxColumn.Name = "lastUpdateByDataGridViewTextBoxColumn";
+            this.deleteAppointmentButton.Click += new System.EventHandler(this.deleteAppointmentButton_Click);
             // 
             // appointmentBindingSource
             // 
@@ -357,21 +237,6 @@
         private System.Windows.Forms.BindingSource userBindingSource2;
         private System.Windows.Forms.Label allAppointmentsLabel;
         private System.Windows.Forms.DataGridView appointmentDatagrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn appointmentIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn userIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn urlDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn startDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn endDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn createDateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn createdByDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastUpdateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastUpdateByDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource appointmentBindingSource;
         private System.Windows.Forms.Button addAppointmentButton;
         private System.Windows.Forms.Button updateAppointmentButton;

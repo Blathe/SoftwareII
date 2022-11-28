@@ -9,12 +9,12 @@ using SoftwareII.Models;
 
 namespace SoftwareII.Services
 {
-    public class UserService
+    public class AuthService
     {
         public string _activeUser;
         public CultureInfo _culture;
 
-        public UserService()
+        public AuthService()
         {
         }
 

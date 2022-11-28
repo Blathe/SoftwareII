@@ -114,6 +114,7 @@ namespace SoftwareII.Forms
             this.confirmButton.TabIndex = 6;
             this.confirmButton.Text = "Create Appointment";
             this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
             // cancelButton
             // 
@@ -154,9 +155,9 @@ namespace SoftwareII.Forms
             this.businessHoursLabel.AutoSize = true;
             this.businessHoursLabel.Location = new System.Drawing.Point(23, 20);
             this.businessHoursLabel.Name = "businessHoursLabel";
-            this.businessHoursLabel.Size = new System.Drawing.Size(197, 13);
+            this.businessHoursLabel.Size = new System.Drawing.Size(196, 13);
             this.businessHoursLabel.TabIndex = 10;
-            this.businessHoursLabel.Text = "Business Hours: 8 AM - 6 PM M-F (UTC)";
+            this.businessHoursLabel.Text = "Business Hours: 8 AM - 6 PM M-F (PST)";
             // 
             // timePicker
             // 

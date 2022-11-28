@@ -261,6 +261,7 @@ namespace SoftwareII.Services
                     }
                 }
             }
+
             return customer;
         }
 
@@ -278,6 +279,73 @@ namespace SoftwareII.Services
                 lastUpdateBy = rdr.GetString(7)
             };
             return customer;
+        }
+
+        public void CreateNewAppointment(int customerId, int userId, string type, DateTime start, DateTime end)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "INSERT INTO appointment (customerId, userId, type, title, description, location, contact, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                                            "VALUES (@customerId, @userId, @type, @title, @description, @location, @contact, @url, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@customerId", customerId);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@type", type);
+                        cmd.Parameters.AddWithValue("@start", start.ToUniversalTime());
+                        cmd.Parameters.AddWithValue("@end", end.ToUniversalTime());
+                        cmd.Parameters.AddWithValue("@title", "Title");
+                        cmd.Parameters.AddWithValue("@description", "Description");
+                        cmd.Parameters.AddWithValue("@location", "Location");
+                        cmd.Parameters.AddWithValue("@contact", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@url", "url");
+                        cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.LoadAllAppointments();
+                        MessageBox.Show("Success! Appointment has been added.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
+
+        public void DeleteAppointment(int appointmentId)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "DELETE FROM appointment WHERE appointment.appointmentId=@appointmentId";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
+                        cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.LoadAllAppointments();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         public Appointment DBToAppointment(MySqlDataReader rdr)

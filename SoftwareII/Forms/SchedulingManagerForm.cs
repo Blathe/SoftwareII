@@ -76,5 +76,16 @@ namespace SoftwareII.Forms
             AddAppointmentForm form = new AddAppointmentForm();
             form.Show();
         }
+
+        private void deleteAppointmentButton_Click(object sender, EventArgs e)
+        {
+            if (appointmentDatagrid.SelectedRows.Count > 0)
+            {
+                for (int i = 0; i < appointmentDatagrid.SelectedRows.Count; i++)
+                {
+                    Program.DBService.DeleteAppointment((int)appointmentDatagrid.SelectedRows[i].Cells["appointmentId"].Value);
+                }
+            }
+        }
     }
 }
