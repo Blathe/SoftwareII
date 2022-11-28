@@ -59,6 +59,7 @@
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
@@ -89,7 +90,7 @@
             // 
             // addCustomerButton
             // 
-            this.addCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCustomerButton.Location = new System.Drawing.Point(23, 279);
             this.addCustomerButton.Name = "addCustomerButton";
             this.addCustomerButton.Size = new System.Drawing.Size(165, 36);
@@ -100,7 +101,7 @@
             // 
             // deleteCustomerButton
             // 
-            this.deleteCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteCustomerButton.Location = new System.Drawing.Point(702, 279);
             this.deleteCustomerButton.Name = "deleteCustomerButton";
             this.deleteCustomerButton.Size = new System.Drawing.Size(165, 36);
@@ -111,7 +112,7 @@
             // 
             // updateCustomerButton
             // 
-            this.updateCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateCustomerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateCustomerButton.Location = new System.Drawing.Point(194, 279);
             this.updateCustomerButton.Name = "updateCustomerButton";
             this.updateCustomerButton.Size = new System.Drawing.Size(165, 36);
@@ -176,7 +177,7 @@
             // 
             // addAppointmentButton
             // 
-            this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAppointmentButton.Location = new System.Drawing.Point(23, 758);
             this.addAppointmentButton.Name = "addAppointmentButton";
             this.addAppointmentButton.Size = new System.Drawing.Size(165, 36);
@@ -187,7 +188,7 @@
             // 
             // updateAppointmentButton
             // 
-            this.updateAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateAppointmentButton.Location = new System.Drawing.Point(194, 758);
             this.updateAppointmentButton.Name = "updateAppointmentButton";
             this.updateAppointmentButton.Size = new System.Drawing.Size(165, 36);
@@ -197,7 +198,7 @@
             // 
             // deleteAppointmentButton
             // 
-            this.deleteAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteAppointmentButton.Location = new System.Drawing.Point(1221, 758);
             this.deleteAppointmentButton.Name = "deleteAppointmentButton";
             this.deleteAppointmentButton.Size = new System.Drawing.Size(165, 36);
@@ -375,5 +376,6 @@
         private System.Windows.Forms.Button addAppointmentButton;
         private System.Windows.Forms.Button updateAppointmentButton;
         private System.Windows.Forms.Button deleteAppointmentButton;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }

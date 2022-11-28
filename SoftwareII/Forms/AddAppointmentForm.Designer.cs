@@ -40,16 +40,19 @@ namespace SoftwareII.Forms
             this.appointmentTypeLabel = new System.Windows.Forms.Label();
             this.appointmentTypeSelect = new System.Windows.Forms.ComboBox();
             this.businessHoursLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // datePicker
             // 
             this.datePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.datePicker.CustomFormat = "MMMM dd, yyyy";
+            this.datePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datePicker.Location = new System.Drawing.Point(286, 160);
             this.datePicker.MinDate = new System.DateTime(2022, 11, 27, 0, 0, 0, 0);
             this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(273, 20);
+            this.datePicker.Size = new System.Drawing.Size(273, 26);
             this.datePicker.TabIndex = 0;
             this.datePicker.Value = new System.DateTime(2022, 11, 27, 20, 51, 24, 0);
             // 
@@ -122,6 +125,7 @@ namespace SoftwareII.Forms
             this.cancelButton.TabIndex = 7;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // appointmentTypeLabel
             // 
@@ -154,24 +158,27 @@ namespace SoftwareII.Forms
             this.businessHoursLabel.TabIndex = 10;
             this.businessHoursLabel.Text = "Business Hours: 8 AM - 6 PM M-F (UTC)";
             // 
-            // dateTimePicker1
+            // timePicker
             // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(565, 160);
-            this.dateTimePicker1.MinDate = new System.DateTime(2022, 11, 27, 0, 0, 0, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(102, 20);
-            this.dateTimePicker1.TabIndex = 11;
-            this.dateTimePicker1.Value = new System.DateTime(2022, 11, 27, 20, 51, 24, 0);
+            this.timePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.timePicker.CustomFormat = "hh:mm tt";
+            this.timePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timePicker.Location = new System.Drawing.Point(565, 160);
+            this.timePicker.MinDate = new System.DateTime(2022, 11, 27, 0, 0, 0, 0);
+            this.timePicker.Name = "timePicker";
+            this.timePicker.ShowUpDown = true;
+            this.timePicker.Size = new System.Drawing.Size(102, 26);
+            this.timePicker.TabIndex = 11;
+            this.timePicker.Value = new System.DateTime(2022, 11, 27, 8, 0, 0, 0);
+            this.timePicker.ValueChanged += new System.EventHandler(this.timePicker_ValueChanged);
             // 
             // AddAppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 339);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.timePicker);
             this.Controls.Add(this.businessHoursLabel);
             this.Controls.Add(this.appointmentTypeSelect);
             this.Controls.Add(this.appointmentTypeLabel);
@@ -208,6 +215,6 @@ namespace SoftwareII.Forms
         private System.Windows.Forms.Label appointmentTypeLabel;
         private System.Windows.Forms.ComboBox appointmentTypeSelect;
         private System.Windows.Forms.Label businessHoursLabel;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker timePicker;
     }
 }
