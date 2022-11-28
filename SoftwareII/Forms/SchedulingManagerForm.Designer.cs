@@ -183,6 +183,7 @@
             this.addAppointmentButton.TabIndex = 10;
             this.addAppointmentButton.Text = "Add Appointment";
             this.addAppointmentButton.UseVisualStyleBackColor = true;
+            this.addAppointmentButton.Click += new System.EventHandler(this.addAppointmentButton_Click);
             // 
             // updateAppointmentButton
             // 
@@ -326,6 +327,7 @@
             this.Controls.Add(this.addCustomerButton);
             this.Controls.Add(this.localeLabel);
             this.Controls.Add(this.allCustomersLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SchedulingManagerForm";
             this.Padding = new System.Windows.Forms.Padding(20);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

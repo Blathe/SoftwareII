@@ -61,6 +61,7 @@ namespace SoftwareII.Services
                 {
                     try
                     {
+                        //Delete any appointments associated with the customer that is being deleted.
                         var appointmentQuery = "DELETE FROM appointment WHERE appointment.customerId = @customerId";
                         using (var cmd = new MySqlCommand(appointmentQuery, connection))
                         {
@@ -68,6 +69,7 @@ namespace SoftwareII.Services
                             cmd.ExecuteNonQuery();
                         }
 
+                        //Delete the customer and any associated data to that customer.
                         var query = "DELETE customer, address, city, country " +
                             "FROM customer " +
                             "INNER JOIN address ON address.addressId = customer.addressId " +

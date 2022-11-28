@@ -70,5 +70,11 @@ namespace SoftwareII.Forms
         {
             Application.Exit();
         }
+
+        private void addAppointmentButton_Click(object sender, EventArgs e)
+        {
+            AddAppointmentForm form = new AddAppointmentForm();
+            form.Show();
+        }
     }
 }

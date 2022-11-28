@@ -66,7 +66,7 @@ namespace SoftwareII.Forms
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmButton.Location = new System.Drawing.Point(175, 337);
+            this.confirmButton.Location = new System.Drawing.Point(175, 328);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(105, 35);
             this.confirmButton.TabIndex = 3;
@@ -137,7 +137,7 @@ namespace SoftwareII.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 425);
+            this.ClientSize = new System.Drawing.Size(333, 416);
             this.Controls.Add(this.customerCountryLabel);
             this.Controls.Add(this.customerCountryTextbox);
             this.Controls.Add(this.customerCityLabel);
@@ -149,6 +149,7 @@ namespace SoftwareII.Forms
             this.Controls.Add(this.customerAddressTextbox);
             this.Controls.Add(this.customerPhoneTextbox);
             this.Controls.Add(this.customerNameTextbox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AddCustomerForm";
             this.Padding = new System.Windows.Forms.Padding(50);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

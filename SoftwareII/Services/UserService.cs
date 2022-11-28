@@ -6,7 +6,6 @@ using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Cms;
 using SoftwareII.Forms;
 using SoftwareII.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SoftwareII.Services
 {
@@ -25,7 +24,7 @@ namespace SoftwareII.Services
 
             if (!Program.DBService.connectionOpen)
             {
-                Program.DBService.connection.Open(); ;
+                Program.DBService.connection.Open();
             }
 
             using (Program.DBService.connection)
