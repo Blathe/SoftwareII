@@ -41,12 +41,18 @@
             this.updateAppointmentButton = new System.Windows.Forms.Button();
             this.deleteAppointmentButton = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.calendarLabel = new System.Windows.Forms.Label();
+            this.weeklyViewRadioButton = new System.Windows.Forms.RadioButton();
+            this.monthlyViewRadioButton = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.calendarListView = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource1)).BeginInit();
@@ -176,6 +182,51 @@
             this.deleteAppointmentButton.UseVisualStyleBackColor = true;
             this.deleteAppointmentButton.Click += new System.EventHandler(this.deleteAppointmentButton_Click);
             // 
+            // calendarLabel
+            // 
+            this.calendarLabel.AutoSize = true;
+            this.calendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.calendarLabel.Location = new System.Drawing.Point(914, 20);
+            this.calendarLabel.Name = "calendarLabel";
+            this.calendarLabel.Size = new System.Drawing.Size(131, 13);
+            this.calendarLabel.TabIndex = 14;
+            this.calendarLabel.Text = "Appointment Calendar";
+            // 
+            // weeklyViewRadioButton
+            // 
+            this.weeklyViewRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.weeklyViewRadioButton.AutoSize = true;
+            this.weeklyViewRadioButton.Location = new System.Drawing.Point(8, 10);
+            this.weeklyViewRadioButton.Name = "weeklyViewRadioButton";
+            this.weeklyViewRadioButton.Size = new System.Drawing.Size(87, 17);
+            this.weeklyViewRadioButton.TabIndex = 15;
+            this.weeklyViewRadioButton.TabStop = true;
+            this.weeklyViewRadioButton.Text = "Weekly View";
+            this.weeklyViewRadioButton.UseVisualStyleBackColor = true;
+            this.weeklyViewRadioButton.CheckedChanged += new System.EventHandler(this.weeklyViewRadioButton_CheckedChanged);
+            // 
+            // monthlyViewRadioButton
+            // 
+            this.monthlyViewRadioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.monthlyViewRadioButton.AutoSize = true;
+            this.monthlyViewRadioButton.Location = new System.Drawing.Point(101, 10);
+            this.monthlyViewRadioButton.Name = "monthlyViewRadioButton";
+            this.monthlyViewRadioButton.Size = new System.Drawing.Size(88, 17);
+            this.monthlyViewRadioButton.TabIndex = 16;
+            this.monthlyViewRadioButton.TabStop = true;
+            this.monthlyViewRadioButton.Text = "Monthly View";
+            this.monthlyViewRadioButton.UseVisualStyleBackColor = true;
+            this.monthlyViewRadioButton.CheckedChanged += new System.EventHandler(this.monthlyViewRadioButton_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.weeklyViewRadioButton);
+            this.panel1.Controls.Add(this.monthlyViewRadioButton);
+            this.panel1.Location = new System.Drawing.Point(1194, 279);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(192, 36);
+            this.panel1.TabIndex = 17;
+            // 
             // appointmentBindingSource
             // 
             this.appointmentBindingSource.DataSource = typeof(SoftwareII.Models.Appointment);
@@ -192,11 +243,23 @@
             // 
             this.userBindingSource2.DataSource = typeof(SoftwareII.Models.User);
             // 
+            // calendarListView
+            // 
+            this.calendarListView.HideSelection = false;
+            this.calendarListView.Location = new System.Drawing.Point(917, 36);
+            this.calendarListView.Name = "calendarListView";
+            this.calendarListView.Size = new System.Drawing.Size(469, 237);
+            this.calendarListView.TabIndex = 18;
+            this.calendarListView.UseCompatibleStateImageBehavior = false;
+            // 
             // SchedulingManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1409, 870);
+            this.Controls.Add(this.calendarListView);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.calendarLabel);
             this.Controls.Add(this.deleteAppointmentButton);
             this.Controls.Add(this.updateAppointmentButton);
             this.Controls.Add(this.addAppointmentButton);
@@ -216,6 +279,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SchedulingManagerForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource1)).EndInit();
@@ -242,5 +307,10 @@
         private System.Windows.Forms.Button updateAppointmentButton;
         private System.Windows.Forms.Button deleteAppointmentButton;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Label calendarLabel;
+        private System.Windows.Forms.RadioButton weeklyViewRadioButton;
+        private System.Windows.Forms.RadioButton monthlyViewRadioButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView calendarListView;
     }
 }

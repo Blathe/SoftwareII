@@ -11,7 +11,7 @@ namespace SoftwareII
     {
         public static DBConnectionService DBService;
         public static LoggingService LoggingService;
-        public static AuthService UserService;
+        public static AuthService AuthService;
         public static FormService FormService;
         /// <summary>
         /// The main entry point for the application.
@@ -24,7 +24,7 @@ namespace SoftwareII
 
             DBService = new DBConnectionService();
             LoggingService = new LoggingService();
-            UserService = new AuthService();
+            AuthService = new AuthService();
             FormService = new FormService();
 
             Application.Run(new LoginForm());

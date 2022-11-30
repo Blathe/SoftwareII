@@ -63,7 +63,7 @@ namespace SoftwareII
                     return;
                 }
 
-                Program.UserService.AuthenticateUser(username, password, _culture, this);
+                Program.AuthService.AuthenticateUser(username, password, _culture, this);
             }
         }
     }

@@ -53,47 +53,38 @@ namespace SoftwareII.Services
                 connection.Open();
             }
 
-            var confirmResult = MessageBox.Show("Are you sure you want to delete this customer? It will also delete all appointments and data related to this customer.", "Delete Customer?", MessageBoxButtons.YesNo);
-
-            if (confirmResult == DialogResult.Yes)
+            using (connection)
             {
-                using (connection)
+                try
                 {
-                    try
+                    //Delete any appointments associated with the customer that is being deleted.
+                    var appointmentQuery = "DELETE FROM appointment WHERE appointment.customerId = @customerId";
+                    using (var cmd = new MySqlCommand(appointmentQuery, connection))
                     {
-                        //Delete any appointments associated with the customer that is being deleted.
-                        var appointmentQuery = "DELETE FROM appointment WHERE appointment.customerId = @customerId";
-                        using (var cmd = new MySqlCommand(appointmentQuery, connection))
-                        {
-                            cmd.Parameters.AddWithValue("@customerId", customerID);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        //Delete the customer and any associated data to that customer.
-                        var query = "DELETE customer, address, city, country " +
-                            "FROM customer " +
-                            "INNER JOIN address ON address.addressId = customer.addressId " +
-                            "INNER JOIN city ON city.cityId = address.cityId " +
-                            "INNER JOIN country ON country.countryId = city.countryId " +
-                            "WHERE customer.customerId=@customerId";
-                        
-                        using (var cmd = new MySqlCommand(query, connection))
-                        {
-                            cmd.Parameters.AddWithValue("@customerId", customerID);
-                            cmd.ExecuteNonQuery();
-                            Program.FormService._schedulingManagerForm.LoadAllCustomers();
-                            MessageBox.Show("Success! User has been deleted.");
-                        }
+                        cmd.Parameters.AddWithValue("@customerId", customerID);
+                        cmd.ExecuteNonQuery();
                     }
-                    catch (Exception e)
+
+                    //Delete the customer and any associated data to that customer.
+                    var query = "DELETE customer, address, city, country " +
+                        "FROM customer " +
+                        "INNER JOIN address ON address.addressId = customer.addressId " +
+                        "INNER JOIN city ON city.cityId = address.cityId " +
+                        "INNER JOIN country ON country.countryId = city.countryId " +
+                        "WHERE customer.customerId=@customerId";
+
+                    using (var cmd = new MySqlCommand(query, connection))
                     {
-                        MessageBox.Show(e.Message);
+                        cmd.Parameters.AddWithValue("@customerId", customerID);
+                        cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                        MessageBox.Show("Success! User has been deleted.");
                     }
                 }
-            }
-            else
-            {
-                // If 'No', do something here.
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 
@@ -116,9 +107,9 @@ namespace SoftwareII.Services
                     {
                         cmd.Parameters.AddWithValue("@country", country);
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                         cmd.ExecuteNonQuery();
                         PK = cmd.LastInsertedId;
                     }
@@ -131,9 +122,9 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@city", city);
                         cmd.Parameters.AddWithValue("@countryId", PK);
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                         cmd.ExecuteNonQuery();
                         PK = cmd.LastInsertedId;
                     }
@@ -149,9 +140,9 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@postalCode", "11111");
                         cmd.Parameters.AddWithValue("@phone", phone);
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                         cmd.ExecuteNonQuery();
                         PK = cmd.LastInsertedId;
                     }
@@ -165,9 +156,9 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@addressId", PK);
                         cmd.Parameters.AddWithValue("@active", 1);
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                         cmd.ExecuteNonQuery();
                         Program.FormService._schedulingManagerForm.LoadAllCustomers();
                         MessageBox.Show("Success! User has been added.");
@@ -197,7 +188,7 @@ namespace SoftwareII.Services
                     cmd.Parameters.AddWithValue("@addressId", addressId);
                     cmd.Parameters.AddWithValue("@customerName", name);
                     cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                     cmd.Parameters.AddWithValue("@address", address);
                     cmd.Parameters.AddWithValue("@phone", phone);
                     cmd.ExecuteNonQuery();
@@ -209,6 +200,34 @@ namespace SoftwareII.Services
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        public string GetCustomerNameById(int customerId)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var name = "";
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "SELECT customerName FROM customer WHERE customerId=@customerId";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@customerId", customerId);
+                        name = (string)cmd.ExecuteScalar();
+                    }
+                } catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+
+            return name;
         }
 
         public List<Customer> GetAllCustomers()
@@ -304,12 +323,12 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@title", "Title");
                         cmd.Parameters.AddWithValue("@description", "Description");
                         cmd.Parameters.AddWithValue("@location", "Location");
-                        cmd.Parameters.AddWithValue("@contact", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@contact", GetCustomerNameById(customerId));
                         cmd.Parameters.AddWithValue("@url", "url");
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@createdBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);
                         cmd.Parameters.AddWithValue("@lastUpdate", DateTime.UtcNow);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.UserService._activeUser);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
                         cmd.ExecuteNonQuery();
                         Program.FormService._schedulingManagerForm.LoadAllAppointments();
                         MessageBox.Show("Success! Appointment has been added.");
