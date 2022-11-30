@@ -245,6 +245,7 @@
             // 
             // calendarListView
             // 
+            this.calendarListView.GridLines = true;
             this.calendarListView.HideSelection = false;
             this.calendarListView.Location = new System.Drawing.Point(917, 36);
             this.calendarListView.Name = "calendarListView";

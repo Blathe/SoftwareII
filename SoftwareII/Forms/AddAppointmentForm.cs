@@ -80,7 +80,7 @@ namespace SoftwareII.Forms
             {
                 var customerId = (int)customerSelectBox.SelectedValue;
                 var userId = 1; //TODO hardcoded for now
-                Program.DBService.CreateNewAppointment(customerId, userId, appointmentTypeSelect.Text, _selectedTime, _selectedTime.AddMinutes(29));
+                Program.DBService.CreateNewAppointment(customerId, userId, Program.DBService.GetCustomerNameById(customerId), appointmentTypeSelect.Text, _selectedTime, _selectedTime.AddMinutes(29));
             }
         }
 

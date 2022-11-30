@@ -300,7 +300,7 @@ namespace SoftwareII.Services
             return customer;
         }
 
-        public void CreateNewAppointment(int customerId, int userId, string type, DateTime start, DateTime end)
+        public void CreateNewAppointment(int customerId, int userId, string customerName, string type, DateTime start, DateTime end)
         {
             if (!connectionOpen)
             {
@@ -323,7 +323,7 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@title", "Title");
                         cmd.Parameters.AddWithValue("@description", "Description");
                         cmd.Parameters.AddWithValue("@location", "Location");
-                        cmd.Parameters.AddWithValue("@contact", GetCustomerNameById(customerId));
+                        cmd.Parameters.AddWithValue("@contact", customerName);
                         cmd.Parameters.AddWithValue("@url", "url");
                         cmd.Parameters.AddWithValue("@createDate", DateTime.UtcNow);
                         cmd.Parameters.AddWithValue("@createdBy", Program.AuthService._activeUser);

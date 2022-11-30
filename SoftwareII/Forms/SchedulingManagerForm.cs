@@ -23,6 +23,8 @@ namespace SoftwareII.Forms
 
             LoadAllCustomers();
             LoadAllAppointments();
+            SetupCalendar();
+
         }
 
         public void LoadAllCustomers()
@@ -34,6 +36,12 @@ namespace SoftwareII.Forms
         public void LoadAllAppointments()
         {
             _allAppointments = Program.DBService.GetAllAppointments();
+            foreach (var appointment in _allAppointments)
+            {
+                appointment.start = appointment.start.ToLocalTime();
+                appointment.end = appointment.end.ToLocalTime();
+            }
+
             appointmentDatagrid.DataSource = _allAppointments;
         }
         private void addCustomerButton_Click(object sender, EventArgs e)
@@ -102,15 +110,33 @@ namespace SoftwareII.Forms
 
         private void weeklyViewRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            _calendarAppointments = _allAppointments.FindAll(appointment => appointment.start > DateTime.Now && appointment.start < DateTime.Now.AddDays(8) && appointment.createdBy == Program.AuthService._activeUser);
-            calendarLabel.Text = "Appointment Calendar - This Week (next 7 days)";
+            if (weeklyViewRadioButton.Checked == true)
+            {
+                calendarListView.Items.Clear();
+
+                //This lambda function makes it easy to filter specific appointments to load into the calendar.
+                //_calendarAppointments = _allAppointments.FindAll(appointment => appointment.start > DateTime.Now && appointment.start < DateTime.Now.AddDays(8) && appointment.createdBy == Program.AuthService._activeUser);
+                _calendarAppointments = _allAppointments.FindAll(a => a.createdBy == Program.AuthService._activeUser);
+                foreach (var appointment in _calendarAppointments)
+                {
+                    var startTime = appointment.start.ToLocalTime();
+                    var endTime = appointment.end.ToLocalTime();
+                    string[] itemInfo = { appointment.contact, startTime.ToString(), endTime.ToString() };
+                    ListViewItem item = new ListViewItem(itemInfo);
+                    calendarListView.Items.Add(item);
+                }
+            }
+        }
+
+        private void SetupCalendar()
+        {
+            weeklyViewRadioButton.Checked = true;
+            monthlyViewRadioButton.Checked = false;
             calendarListView.View = View.Details;
+            calendarLabel.Text = "Appointment Calendar - This Week (next 7 days)";
             calendarListView.Columns.Add("Customer");
             calendarListView.Columns.Add("Appointment Start");
-            foreach (var appointment in _calendarAppointments)
-            {
-                ListViewItem item = new ListViewItem();
-            }
+            calendarListView.Columns.Add("Appointment End");
         }
 
         private void monthlyViewRadioButton_CheckedChanged(object sender, EventArgs e)
