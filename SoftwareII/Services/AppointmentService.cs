@@ -9,17 +9,18 @@ namespace SoftwareII.Services
     {
         public static bool DoAppointmentsOverlap(DateTime dateToCheck)
         {
+            Console.WriteLine("Checking Date: " + dateToCheck);
             var allAppointments = Program.DBService.GetAllAppointments();
             foreach (var appointment in allAppointments)
             {
                 var start = appointment.start;
                 var end = appointment.end;
-                if (dateToCheck > start && dateToCheck < end) {
+                Console.WriteLine(string.Format("Appointment - Start: {0} | End: {1}", start, end));
+                if (dateToCheck >= start && dateToCheck <= end) {
                     MessageBox.Show("An appointment is already booked during that time, try another date or time.");
                     return true;
                 }
             }
-
             return false;
         }
     }

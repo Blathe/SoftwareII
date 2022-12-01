@@ -462,8 +462,6 @@ namespace SoftwareII.Services
             return address;
         }
 
-
-
         public void CloseConnection()
         {
             if (connection != null)

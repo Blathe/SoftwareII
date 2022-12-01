@@ -73,8 +73,7 @@ namespace SoftwareII.Forms
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second);
-
+            _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second).ToUniversalTime();
 
             if (formValid())
             {
@@ -86,6 +85,9 @@ namespace SoftwareII.Forms
 
         private bool formValid()
         {
+            if (Program.AuthService._activeUser == null)
+                return false;
+
             if (customerSelectBox.Text == "" || userSelectBox.Text == "" || appointmentTypeSelect.Text == "")
                 return false;
 
@@ -104,11 +106,6 @@ namespace SoftwareII.Forms
                 return false;
 
             return true;
-        }
-
-        private bool AppointmentOverlaps()
-        {
-            return false;
         }
     }
 }
