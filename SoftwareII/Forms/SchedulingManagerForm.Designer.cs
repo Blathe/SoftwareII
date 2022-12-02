@@ -265,6 +265,7 @@
             this.appointmentReportsButton.TabIndex = 19;
             this.appointmentReportsButton.Text = "Reports";
             this.appointmentReportsButton.UseVisualStyleBackColor = true;
+            this.appointmentReportsButton.Click += new System.EventHandler(this.appointmentReportsButton_Click);
             // 
             // SchedulingManagerForm
             // 

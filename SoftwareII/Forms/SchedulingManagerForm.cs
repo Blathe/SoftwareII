@@ -198,5 +198,11 @@ namespace SoftwareII.Forms
                 calendarListView.Items.Add(item);
             }
         }
+
+        private void appointmentReportsButton_Click(object sender, EventArgs e)
+        {
+            ReportsForm reportForm = new ReportsForm();
+            reportForm.Show();
+        }
     }
 }
