@@ -14,17 +14,26 @@ namespace SoftwareII.Forms
         private List<Appointment> _calendarAppointments;
         public CultureInfo _culture;
 
+        public CalendarStyle _calendarStyle;
+
+        public enum CalendarStyle
+        {
+            MONTHLY,
+            WEEKLY
+        }
+
         public SchedulingManagerForm()
         {
             InitializeComponent();
             _culture = CultureInfo.CurrentCulture;
 
             localeLabel.Text = string.Format("Locale: {0}", _culture.Name);
+        }
 
+        private void SchedulingManagerForm_Load(object sender, EventArgs e)
+        {
             LoadAllCustomers();
             LoadAllAppointments();
-            SetupCalendar();
-
         }
 
         public void LoadAllCustomers()
@@ -43,6 +52,8 @@ namespace SoftwareII.Forms
             }
 
             appointmentDatagrid.DataSource = _allAppointments;
+            Console.WriteLine("All Appointments loaded: " + _allAppointments.Count);
+            SetupCalendar();
         }
         private void addCustomerButton_Click(object sender, EventArgs e)
         {
@@ -80,6 +91,11 @@ namespace SoftwareII.Forms
             customerDataGrid.Refresh();
         }
 
+        public void RefreshCalendar()
+        {
+            PopulateCalendar(_calendarStyle);
+        }
+
         private void SchedulingManagerForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -87,7 +103,7 @@ namespace SoftwareII.Forms
 
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
-            AddAppointmentForm form = new AddAppointmentForm();
+            AddAppointmentForm form = new AddAppointmentForm(this);
             form.Show();
         }
 
@@ -103,45 +119,84 @@ namespace SoftwareII.Forms
                     if (confirmResult == DialogResult.Yes)
                     {
                         Program.DBService.DeleteAppointment((int)appointmentDatagrid.SelectedRows[i].Cells["appointmentId"].Value);
-                    }
+                        PopulateCalendar(CalendarStyle.WEEKLY);
+                    } 
                 }
             }
+        }
+        private void SetupCalendar()
+        {
+            calendarListView.View = View.Details;
+            calendarListView.Columns.Add("Customer", 70);
+            calendarListView.Columns.Add("Appointment Start", 200);
+            calendarListView.Columns.Add("Appointment End", 200);
+
+            weeklyViewRadioButton.Checked = true;
+            monthlyViewRadioButton.Checked = false;
         }
 
         private void weeklyViewRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (weeklyViewRadioButton.Checked == true)
             {
-                calendarListView.Items.Clear();
-
-                //This lambda function makes it easy to filter specific appointments to load into the calendar.
-                //_calendarAppointments = _allAppointments.FindAll(appointment => appointment.start > DateTime.Now && appointment.start < DateTime.Now.AddDays(8) && appointment.createdBy == Program.AuthService._activeUser);
-                _calendarAppointments = _allAppointments.FindAll(a => a.createdBy == Program.AuthService._activeUser);
-                foreach (var appointment in _calendarAppointments)
-                {
-                    var startTime = appointment.start.ToLocalTime();
-                    var endTime = appointment.end.ToLocalTime();
-                    string[] itemInfo = { appointment.contact, startTime.ToString(), endTime.ToString() };
-                    ListViewItem item = new ListViewItem(itemInfo);
-                    calendarListView.Items.Add(item);
-                }
+                PopulateCalendar(CalendarStyle.WEEKLY);
             }
-        }
-
-        private void SetupCalendar()
-        {
-            weeklyViewRadioButton.Checked = true;
-            monthlyViewRadioButton.Checked = false;
-            calendarListView.View = View.Details;
-            calendarLabel.Text = "Appointment Calendar - This Week (next 7 days)";
-            calendarListView.Columns.Add("Customer");
-            calendarListView.Columns.Add("Appointment Start");
-            calendarListView.Columns.Add("Appointment End");
         }
 
         private void monthlyViewRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            calendarLabel.Text = "Appointment Calendar - This Month (next 30 days)";
+            if (monthlyViewRadioButton.Checked == true)
+            {
+                PopulateCalendar(CalendarStyle.MONTHLY);
+            }
+        }
+
+        private void PopulateCalendar(CalendarStyle style)
+        {
+            Console.WriteLine("All Appointments populating calendar: " + _allAppointments.Count);
+            try
+            {
+                if (style == CalendarStyle.MONTHLY)
+                {
+                    calendarLabel.Text = "Appointment Calendar - This Month (next 30 days)";
+
+                    _calendarAppointments = _allAppointments.FindAll(a => a.createdBy == Program.AuthService._activeUser && a.start >= DateTime.Now.ToUniversalTime() && a.start <= DateTime.Now.AddMonths(1).ToUniversalTime());
+                    _calendarAppointments.Sort((a1, a2) => a1.start.CompareTo(a2.start));
+                    LoadCalendarItems(_calendarAppointments);
+                    _calendarStyle = CalendarStyle.MONTHLY;
+
+                }
+                else if (style == CalendarStyle.WEEKLY)
+                {
+                    calendarLabel.Text = "Appointment Calendar - This Week (next 7 days)";
+                    //This lambda function makes it easy to filter specific appointments to load into the calendar.
+                    //_calendarAppointments = _allAppointments.FindAll(appointment => appointment.start > DateTime.Now && appointment.start < DateTime.Now.AddDays(8) && appointment.createdBy == Program.AuthService._activeUser);
+                    _calendarAppointments = _allAppointments.FindAll(a => a.start >= DateTime.Now.ToUniversalTime() && a.start <= DateTime.Now.AddDays(8).ToUniversalTime());
+                    _calendarAppointments.Sort((a1, a2) => a1.start.CompareTo(a2.start));
+
+                    LoadCalendarItems(_calendarAppointments);
+                    _calendarStyle = CalendarStyle.WEEKLY;
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+         
+        }
+
+        private void LoadCalendarItems(List<Appointment> appointments)
+        {
+            Console.WriteLine("Loading Calendar: " + appointments.Count);
+            calendarListView.Items.Clear();
+
+            foreach (var appointment in appointments)
+            {
+                var startTime = appointment.start;
+                var endTime = appointment.end;
+                string[] itemInfo = { appointment.contact, startTime.ToString(), endTime.ToString() };
+                ListViewItem item = new ListViewItem(itemInfo);
+                calendarListView.Items.Add(item);
+            }
         }
     }
 }

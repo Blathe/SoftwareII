@@ -7,6 +7,9 @@ namespace SoftwareII.Services
 {
     public static class AppointmentService
     {
+        public static int open = 8; // 8 AM
+        public static int close = 18; // 6 PM
+
         public static bool DoAppointmentsOverlap(DateTime dateToCheck)
         {
             Console.WriteLine("Checking Date: " + dateToCheck);
@@ -22,6 +25,23 @@ namespace SoftwareII.Services
                 }
             }
             return false;
+        }
+
+        public static bool WithinBusinessHours(DateTime dateToCheck)
+        {
+            if (dateToCheck.DayOfWeek == DayOfWeek.Sunday || dateToCheck.DayOfWeek == DayOfWeek.Saturday)
+            {
+                MessageBox.Show("Business hours are closed on weekends. Try scheduling the appointment for a week day.");
+                return false;
+            }
+
+            if (dateToCheck.Hour <= open || dateToCheck.Hour >= close)
+            {
+                MessageBox.Show("You are trying to schedule this appointment outside of business hours. Try between 8 AM and 6 PM UTC time.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

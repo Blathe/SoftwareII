@@ -9,6 +9,7 @@ namespace SoftwareII.Forms
 {
     public partial class AddAppointmentForm : Form
     {
+        private SchedulingManagerForm _schedulingForm;
         public List<Customer> _allCustomers;
         public List<User> _allUsers;
 
@@ -16,14 +17,14 @@ namespace SoftwareII.Forms
 
         public DateTime _selectedTime;
 
-        public AddAppointmentForm()
+        public AddAppointmentForm(SchedulingManagerForm schedulingForm)
         {
             InitializeComponent();
             PopulateCustomerSelectBox();
 
-            _timePickerCurrentMinute = timePicker.Value.Minute;
+            _schedulingForm = schedulingForm;
 
-            //TODO: Add functionality to fetch all Users from DB.
+            _timePickerCurrentMinute = timePicker.Value.Minute;
         }
 
         private void PopulateCustomerSelectBox()
@@ -80,6 +81,7 @@ namespace SoftwareII.Forms
                 var customerId = (int)customerSelectBox.SelectedValue;
                 var userId = 1; //TODO hardcoded for now
                 Program.DBService.CreateNewAppointment(customerId, userId, Program.DBService.GetCustomerNameById(customerId), appointmentTypeSelect.Text, _selectedTime, _selectedTime.AddMinutes(29));
+                _schedulingForm.RefreshCalendar();
             }
         }
 
@@ -99,10 +101,11 @@ namespace SoftwareII.Forms
                 return false;
             }
 
-            //TODO
-            //var user = Program.DBService.GetSingleUser();
-
             if (AppointmentService.DoAppointmentsOverlap(_selectedTime))
+                return false;
+
+            //Check if this is within business hours local time, we can be outside of business hours when saving to the DB as long as local time is correct.
+            if (!AppointmentService.WithinBusinessHours(_selectedTime.ToLocalTime()))
                 return false;
 
             return true;

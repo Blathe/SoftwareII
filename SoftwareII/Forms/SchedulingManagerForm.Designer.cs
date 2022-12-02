@@ -45,11 +45,11 @@
             this.weeklyViewRadioButton = new System.Windows.Forms.RadioButton();
             this.monthlyViewRadioButton = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.calendarListView = new System.Windows.Forms.ListView();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.calendarListView = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             this.panel1.SuspendLayout();
@@ -227,6 +227,18 @@
             this.panel1.Size = new System.Drawing.Size(192, 36);
             this.panel1.TabIndex = 17;
             // 
+            // calendarListView
+            // 
+            this.calendarListView.FullRowSelect = true;
+            this.calendarListView.GridLines = true;
+            this.calendarListView.HideSelection = false;
+            this.calendarListView.Location = new System.Drawing.Point(917, 36);
+            this.calendarListView.Name = "calendarListView";
+            this.calendarListView.Size = new System.Drawing.Size(469, 237);
+            this.calendarListView.TabIndex = 18;
+            this.calendarListView.TabStop = false;
+            this.calendarListView.UseCompatibleStateImageBehavior = false;
+            // 
             // appointmentBindingSource
             // 
             this.appointmentBindingSource.DataSource = typeof(SoftwareII.Models.Appointment);
@@ -242,16 +254,6 @@
             // userBindingSource2
             // 
             this.userBindingSource2.DataSource = typeof(SoftwareII.Models.User);
-            // 
-            // calendarListView
-            // 
-            this.calendarListView.GridLines = true;
-            this.calendarListView.HideSelection = false;
-            this.calendarListView.Location = new System.Drawing.Point(917, 36);
-            this.calendarListView.Name = "calendarListView";
-            this.calendarListView.Size = new System.Drawing.Size(469, 237);
-            this.calendarListView.TabIndex = 18;
-            this.calendarListView.UseCompatibleStateImageBehavior = false;
             // 
             // SchedulingManagerForm
             // 
@@ -278,6 +280,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scheduling Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SchedulingManagerForm_FormClosed);
+            this.Load += new System.EventHandler(this.SchedulingManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).EndInit();
             this.panel1.ResumeLayout(false);

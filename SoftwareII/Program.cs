@@ -22,6 +22,7 @@ namespace SoftwareII
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //Setup our singletons
             DBService = new DBConnectionService();
             LoggingService = new LoggingService();
             AuthService = new AuthService();
