@@ -52,7 +52,7 @@ namespace SoftwareII.Forms
             }
 
             appointmentDatagrid.DataSource = _allAppointments;
-            Console.WriteLine("All Appointments loaded: " + _allAppointments.Count);
+
             SetupCalendar();
         }
         private void addCustomerButton_Click(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace SoftwareII.Forms
                     }
                 }
             }
-        } 
+        }
 
         public void RefreshData()
         {
@@ -153,14 +153,15 @@ namespace SoftwareII.Forms
 
         private void PopulateCalendar(CalendarStyle style)
         {
-            Console.WriteLine("All Appointments populating calendar: " + _allAppointments.Count);
             try
             {
                 if (style == CalendarStyle.MONTHLY)
                 {
                     calendarLabel.Text = "Appointment Calendar - This Month (next 30 days)";
 
+                    //This lambda function makes it easy to filter specific appointments to load into the calendar.
                     _calendarAppointments = _allAppointments.FindAll(a => a.createdBy == Program.AuthService._activeUser && a.start >= DateTime.Now.ToUniversalTime() && a.start <= DateTime.Now.AddMonths(1).ToUniversalTime());
+                    //This lambda function makes it easy to sort our appointments by starting time.
                     _calendarAppointments.Sort((a1, a2) => a1.start.CompareTo(a2.start));
                     LoadCalendarItems(_calendarAppointments);
                     _calendarStyle = CalendarStyle.MONTHLY;
@@ -170,8 +171,8 @@ namespace SoftwareII.Forms
                 {
                     calendarLabel.Text = "Appointment Calendar - This Week (next 7 days)";
                     //This lambda function makes it easy to filter specific appointments to load into the calendar.
-                    //_calendarAppointments = _allAppointments.FindAll(appointment => appointment.start > DateTime.Now && appointment.start < DateTime.Now.AddDays(8) && appointment.createdBy == Program.AuthService._activeUser);
                     _calendarAppointments = _allAppointments.FindAll(a => a.start >= DateTime.Now.ToUniversalTime() && a.start <= DateTime.Now.AddDays(8).ToUniversalTime());
+                    //This lambda function makes it easy to sort our appointments by starting time.
                     _calendarAppointments.Sort((a1, a2) => a1.start.CompareTo(a2.start));
 
                     LoadCalendarItems(_calendarAppointments);
@@ -186,7 +187,6 @@ namespace SoftwareII.Forms
 
         private void LoadCalendarItems(List<Appointment> appointments)
         {
-            Console.WriteLine("Loading Calendar: " + appointments.Count);
             calendarListView.Items.Clear();
 
             foreach (var appointment in appointments)
