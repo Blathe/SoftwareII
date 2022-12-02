@@ -35,7 +35,7 @@ namespace SoftwareII.Services
                     using (var rdr = cmd.ExecuteReader())
                     {
                         if (!rdr.HasRows) {
-                            ShowInvalidUserError();
+                            ShowInvalidUserError(username);
                             return;
                         }
                         while (rdr.Read())
@@ -56,7 +56,7 @@ namespace SoftwareII.Services
                             }
                             else
                             {
-                                ShowInvalidUserError();
+                                ShowInvalidUserError(username);
                                 return;
                             }
                         }
@@ -65,8 +65,11 @@ namespace SoftwareII.Services
             }
         }
 
-        void ShowInvalidUserError()
+        void ShowInvalidUserError(string username)
         {
+            var UTCTime = DateTime.UtcNow;
+            Program.LoggingService.CreateLog(string.Format("Failed login attempt with user: {0}, at time: {1}.", username, UTCTime));
+
             switch (_culture.Name)
             {
                 case "en-US":

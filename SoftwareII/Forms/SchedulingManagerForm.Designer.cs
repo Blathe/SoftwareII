@@ -50,6 +50,7 @@
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.appointmentReportsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             this.panel1.SuspendLayout();
@@ -255,11 +256,22 @@
             // 
             this.userBindingSource2.DataSource = typeof(SoftwareII.Models.User);
             // 
+            // appointmentReportsButton
+            // 
+            this.appointmentReportsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.appointmentReportsButton.Location = new System.Drawing.Point(26, 811);
+            this.appointmentReportsButton.Name = "appointmentReportsButton";
+            this.appointmentReportsButton.Size = new System.Drawing.Size(165, 36);
+            this.appointmentReportsButton.TabIndex = 19;
+            this.appointmentReportsButton.Text = "Reports";
+            this.appointmentReportsButton.UseVisualStyleBackColor = true;
+            // 
             // SchedulingManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1409, 870);
+            this.Controls.Add(this.appointmentReportsButton);
             this.Controls.Add(this.calendarListView);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.calendarLabel);
@@ -316,5 +328,6 @@
         private System.Windows.Forms.RadioButton monthlyViewRadioButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView calendarListView;
+        private System.Windows.Forms.Button appointmentReportsButton;
     }
 }
