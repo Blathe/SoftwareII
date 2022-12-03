@@ -32,14 +32,14 @@ namespace SoftwareII.Forms
             this.reportListBox = new System.Windows.Forms.ListBox();
             this.generateReportButton = new System.Windows.Forms.Button();
             this.appointmentTypesMonthPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.monthSelection = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.appointmentTypeDropdown = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.monthSelection = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
             this.consultantSchedulePanel = new System.Windows.Forms.Panel();
+            this.consultantSelectionBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.appointmentTypesMonthPanel.SuspendLayout();
             this.consultantSchedulePanel.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,7 @@ namespace SoftwareII.Forms
             this.generateReportButton.TabIndex = 1;
             this.generateReportButton.Text = "Generate Report";
             this.generateReportButton.UseVisualStyleBackColor = true;
+            this.generateReportButton.Click += new System.EventHandler(this.generateReportButton_Click);
             // 
             // appointmentTypesMonthPanel
             // 
@@ -78,32 +79,13 @@ namespace SoftwareII.Forms
             this.appointmentTypesMonthPanel.TabIndex = 2;
             this.appointmentTypesMonthPanel.Visible = false;
             // 
-            // label1
+            // appointmentTypeDropdown
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Select Report";
-            // 
-            // monthSelection
-            // 
-            this.monthSelection.CustomFormat = "MMMM, yyyy";
-            this.monthSelection.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.monthSelection.Location = new System.Drawing.Point(6, 22);
-            this.monthSelection.Name = "monthSelection";
-            this.monthSelection.Size = new System.Drawing.Size(190, 20);
-            this.monthSelection.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Select Month:";
+            this.appointmentTypeDropdown.FormattingEnabled = true;
+            this.appointmentTypeDropdown.Location = new System.Drawing.Point(6, 74);
+            this.appointmentTypeDropdown.Name = "appointmentTypeDropdown";
+            this.appointmentTypeDropdown.Size = new System.Drawing.Size(121, 21);
+            this.appointmentTypeDropdown.TabIndex = 3;
             // 
             // label3
             // 
@@ -114,17 +96,36 @@ namespace SoftwareII.Forms
             this.label3.TabIndex = 2;
             this.label3.Text = "Select Appointment Type:";
             // 
-            // appointmentTypeDropdown
+            // label2
             // 
-            this.appointmentTypeDropdown.FormattingEnabled = true;
-            this.appointmentTypeDropdown.Location = new System.Drawing.Point(6, 74);
-            this.appointmentTypeDropdown.Name = "appointmentTypeDropdown";
-            this.appointmentTypeDropdown.Size = new System.Drawing.Size(121, 21);
-            this.appointmentTypeDropdown.TabIndex = 3;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Select Month:";
+            // 
+            // monthSelection
+            // 
+            this.monthSelection.CustomFormat = "MMMM, yyyy";
+            this.monthSelection.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.monthSelection.Location = new System.Drawing.Point(6, 22);
+            this.monthSelection.Name = "monthSelection";
+            this.monthSelection.Size = new System.Drawing.Size(190, 20);
+            this.monthSelection.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Select Report";
             // 
             // consultantSchedulePanel
             // 
-            this.consultantSchedulePanel.Controls.Add(this.comboBox1);
+            this.consultantSchedulePanel.Controls.Add(this.consultantSelectionBox);
             this.consultantSchedulePanel.Controls.Add(this.label5);
             this.consultantSchedulePanel.Enabled = false;
             this.consultantSchedulePanel.Location = new System.Drawing.Point(23, 141);
@@ -132,6 +133,14 @@ namespace SoftwareII.Forms
             this.consultantSchedulePanel.Size = new System.Drawing.Size(216, 55);
             this.consultantSchedulePanel.TabIndex = 4;
             this.consultantSchedulePanel.Visible = false;
+            // 
+            // consultantSelectionBox
+            // 
+            this.consultantSelectionBox.FormattingEnabled = true;
+            this.consultantSelectionBox.Location = new System.Drawing.Point(6, 23);
+            this.consultantSelectionBox.Name = "consultantSelectionBox";
+            this.consultantSelectionBox.Size = new System.Drawing.Size(190, 21);
+            this.consultantSelectionBox.TabIndex = 2;
             // 
             // label5
             // 
@@ -141,14 +150,6 @@ namespace SoftwareII.Forms
             this.label5.Size = new System.Drawing.Size(90, 13);
             this.label5.TabIndex = 1;
             this.label5.Text = "Select Consultant";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 23);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
             // 
             // ReportsForm
             // 
@@ -186,6 +187,6 @@ namespace SoftwareII.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel consultantSchedulePanel;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox consultantSelectionBox;
     }
 }

@@ -409,6 +409,33 @@ namespace SoftwareII.Services
             return address;
         }
 
+        public List<Appointment> GetAllAppointmentsByConsultantId(int userId)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var appointments = new List<Appointment>();
+            using (connection)
+            {
+                var query = "SELECT * FROM appointment WHERE userId=@userId ORDER BY start";
+
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            appointments.Add(DBToAppointment(rdr));
+                        }
+                    }
+                }
+            }
+            return appointments;
+        }
+
         public List<Appointment> GetAllAppointments()
         {
             if (!connectionOpen)
@@ -460,6 +487,77 @@ namespace SoftwareII.Services
                 }
             }
             return address;
+        }
+
+        public User DBToUser(MySqlDataReader rdr)
+        {
+            var consultant = new User()
+            {
+                userID = rdr.GetInt32(0),
+                userName = rdr.GetString(1),
+                password = rdr.GetString(2),
+                active = rdr.GetInt32(3),
+                createDate = rdr.GetDateTime(4),
+                createdBy = rdr.GetString(5),
+                lastUpdate = rdr.GetDateTime(6),
+                lastUpdateBy = rdr.GetString(7),
+            };
+
+            return consultant;
+        }
+
+        public List<User> GetAllConsultants()
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var consultants = new List<User>();
+            using (connection)
+            {
+                var query = "SELECT * FROM user";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            consultants.Add(DBToUser(rdr));
+                        }
+                    }
+                }
+            }
+            return consultants;
+        }
+
+        public User GetSingleConsultant(int userId)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var consultant = new User();
+
+            using (connection)
+            {
+                var query = "SELECT * FROM user " +
+                    "WHERE userId=@userId";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            consultant = DBToUser(rdr);
+                        }
+                    }
+                }
+            }
+
+            return consultant;
         }
 
         public void CloseConnection()

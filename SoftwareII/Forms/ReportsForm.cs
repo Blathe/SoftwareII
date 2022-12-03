@@ -1,27 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
+using SoftwareII.Models;
 
 namespace SoftwareII.Forms
 {
     public partial class ReportsForm : Form
     {
-        private string _selectedReport;
+
+        private List<User> _allConsultants;
 
         public ReportsForm()
         {
             InitializeComponent();
+
+            _allConsultants = Program.DBService.GetAllConsultants();
+
+            consultantSelectionBox.ValueMember = "userID";
+            consultantSelectionBox.DisplayMember = "userName";
+            consultantSelectionBox.DataSource = _allConsultants;
+
+            //PopulateConsultantBox();
+        }
+
+        private void PopulateConsultantBox()
+        {
+            foreach (var consultant in _allConsultants)
+            {
+                consultantSelectionBox.Items.Add(consultant.userName);
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (reportListBox.SelectedItem == null)
+            {
+                return;
+            }
+
             switch (reportListBox.SelectedItem.ToString())
             {
                 case "Appointment Types by Month":
@@ -39,6 +55,39 @@ namespace SoftwareII.Forms
                 default:
                     break;
             }
+        }
+
+        private void generateReportButton_Click(object sender, EventArgs e)
+        {
+            if (consultantSelectionBox.Text == "")
+            {
+                MessageBox.Show("You must select a consultant before you can generate a report.");
+            } else
+            {
+                switch (reportListBox.SelectedItem.ToString())
+                {
+                    case "Appointment Types by Month":
+                        //GenerateAppointmentTypesByMonthReport(1);
+                        break;
+                    case "Consultant Schedules":
+                        ConsultantScheduleForm form = new ConsultantScheduleForm((int)consultantSelectionBox.SelectedValue);
+                        form.Show();
+                        //GenerateConsultantSchedulesReport();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void GenerateConsultantSchedulesReport(User consultant)
+        {
+            
+        }
+
+        private void GenerateAppointmentTypesByMonthReport(int month, string type)
+        {
+            
         }
     }
 }
