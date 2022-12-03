@@ -25,6 +25,15 @@ namespace SoftwareII.Forms
             _schedulingForm = schedulingForm;
 
             _timePickerCurrentMinute = timePicker.Value.Minute;
+            _allUsers = Program.DBService.GetAllConsultants();
+
+            userSelectBox.DataSource = _allUsers;
+            userSelectBox.DisplayMember = "userName";
+            userSelectBox.ValueMember = "userId";
+            //to prevent user typing user names.
+            userSelectBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            appointmentTypeSelect.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void PopulateCustomerSelectBox()
@@ -33,6 +42,8 @@ namespace SoftwareII.Forms
             customerSelectBox.DataSource = _allCustomers;
             customerSelectBox.DisplayMember = "customerName";
             customerSelectBox.ValueMember = "customerId";
+            //to prevent user typing customer names.
+            customerSelectBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void AddAppointmentForm_Load(object sender, EventArgs e)
@@ -74,13 +85,16 @@ namespace SoftwareII.Forms
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
+            //Make sure our dates display local time when shown to the user.
             _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second).ToUniversalTime();
 
+            //Validate our form, if it's valid, create our appointment.
             if (formValid())
             {
                 var customerId = (int)customerSelectBox.SelectedValue;
-                var userId = 1; //TODO hardcoded for now
+                var userId = (int)userSelectBox.SelectedValue;
                 Program.DBService.CreateNewAppointment(customerId, userId, Program.DBService.GetCustomerNameById(customerId), appointmentTypeSelect.Text, _selectedTime, _selectedTime.AddMinutes(29));
+                //refresh our calendar so the new appointment shows up.
                 _schedulingForm.RefreshCalendar();
             }
         }
@@ -91,8 +105,12 @@ namespace SoftwareII.Forms
                 return false;
 
             if (customerSelectBox.Text == "" || userSelectBox.Text == "" || appointmentTypeSelect.Text == "")
+            {
+                MessageBox.Show("You must fill in all fields to create a new appointment.");
                 return false;
+            }
 
+            //Grab our customer from the DB based on the customer ID falue in our select box.
             var customerId = Program.DBService.GetSingleCustomer((int)customerSelectBox.SelectedValue);
 
             if (customerId == null)

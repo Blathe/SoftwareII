@@ -46,11 +46,11 @@
             this.monthlyViewRadioButton = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.calendarListView = new System.Windows.Forms.ListView();
+            this.appointmentReportsButton = new System.Windows.Forms.Button();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.userBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.appointmentReportsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).BeginInit();
             this.panel1.SuspendLayout();
@@ -131,7 +131,7 @@
             // 
             this.allAppointmentsLabel.AutoSize = true;
             this.allAppointmentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allAppointmentsLabel.Location = new System.Drawing.Point(20, 395);
+            this.allAppointmentsLabel.Location = new System.Drawing.Point(20, 404);
             this.allAppointmentsLabel.Name = "allAppointmentsLabel";
             this.allAppointmentsLabel.Size = new System.Drawing.Size(101, 13);
             this.allAppointmentsLabel.TabIndex = 8;
@@ -239,6 +239,18 @@
             this.calendarListView.TabIndex = 18;
             this.calendarListView.TabStop = false;
             this.calendarListView.UseCompatibleStateImageBehavior = false;
+            this.calendarListView.View = System.Windows.Forms.View.Details;
+            // 
+            // appointmentReportsButton
+            // 
+            this.appointmentReportsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.appointmentReportsButton.Location = new System.Drawing.Point(26, 811);
+            this.appointmentReportsButton.Name = "appointmentReportsButton";
+            this.appointmentReportsButton.Size = new System.Drawing.Size(165, 36);
+            this.appointmentReportsButton.TabIndex = 19;
+            this.appointmentReportsButton.Text = "Reports";
+            this.appointmentReportsButton.UseVisualStyleBackColor = true;
+            this.appointmentReportsButton.Click += new System.EventHandler(this.appointmentReportsButton_Click);
             // 
             // appointmentBindingSource
             // 
@@ -255,17 +267,6 @@
             // userBindingSource2
             // 
             this.userBindingSource2.DataSource = typeof(SoftwareII.Models.User);
-            // 
-            // appointmentReportsButton
-            // 
-            this.appointmentReportsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.appointmentReportsButton.Location = new System.Drawing.Point(26, 811);
-            this.appointmentReportsButton.Name = "appointmentReportsButton";
-            this.appointmentReportsButton.Size = new System.Drawing.Size(165, 36);
-            this.appointmentReportsButton.TabIndex = 19;
-            this.appointmentReportsButton.Text = "Reports";
-            this.appointmentReportsButton.UseVisualStyleBackColor = true;
-            this.appointmentReportsButton.Click += new System.EventHandler(this.appointmentReportsButton_Click);
             // 
             // SchedulingManagerForm
             // 
