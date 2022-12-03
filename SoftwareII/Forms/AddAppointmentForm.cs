@@ -10,12 +10,12 @@ namespace SoftwareII.Forms
     public partial class AddAppointmentForm : Form
     {
         private SchedulingManagerForm _schedulingForm;
-        public List<Customer> _allCustomers;
-        public List<User> _allUsers;
+        private List<Customer> _allCustomers;
+        private List<User> _allUsers;
 
-        public int _timePickerCurrentMinute;
+        private int _timePickerCurrentMinute;
 
-        public DateTime _selectedTime;
+        private DateTime _selectedTime;
 
         public AddAppointmentForm(SchedulingManagerForm schedulingForm)
         {
@@ -48,6 +48,7 @@ namespace SoftwareII.Forms
 
         private void AddAppointmentForm_Load(object sender, EventArgs e)
         {
+            //Prevent scheduling appointments in the past.
             datePicker.MinDate = DateTime.UtcNow;
         }
 

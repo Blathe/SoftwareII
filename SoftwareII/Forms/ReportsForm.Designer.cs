@@ -35,7 +35,7 @@ namespace SoftwareII.Forms
             this.appointmentTypeDropdown = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.monthSelection = new System.Windows.Forms.DateTimePicker();
+            this.monthYearSelection = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.consultantSchedulePanel = new System.Windows.Forms.Panel();
             this.consultantSelectionBox = new System.Windows.Forms.ComboBox();
@@ -71,7 +71,7 @@ namespace SoftwareII.Forms
             this.appointmentTypesMonthPanel.Controls.Add(this.appointmentTypeDropdown);
             this.appointmentTypesMonthPanel.Controls.Add(this.label3);
             this.appointmentTypesMonthPanel.Controls.Add(this.label2);
-            this.appointmentTypesMonthPanel.Controls.Add(this.monthSelection);
+            this.appointmentTypesMonthPanel.Controls.Add(this.monthYearSelection);
             this.appointmentTypesMonthPanel.Enabled = false;
             this.appointmentTypesMonthPanel.Location = new System.Drawing.Point(23, 141);
             this.appointmentTypesMonthPanel.Name = "appointmentTypesMonthPanel";
@@ -105,14 +105,14 @@ namespace SoftwareII.Forms
             this.label2.TabIndex = 1;
             this.label2.Text = "Select Month:";
             // 
-            // monthSelection
+            // monthYearSelection
             // 
-            this.monthSelection.CustomFormat = "MMMM, yyyy";
-            this.monthSelection.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.monthSelection.Location = new System.Drawing.Point(6, 22);
-            this.monthSelection.Name = "monthSelection";
-            this.monthSelection.Size = new System.Drawing.Size(190, 20);
-            this.monthSelection.TabIndex = 0;
+            this.monthYearSelection.CustomFormat = "MMMM, yyyy";
+            this.monthYearSelection.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.monthYearSelection.Location = new System.Drawing.Point(6, 22);
+            this.monthYearSelection.Name = "monthYearSelection";
+            this.monthYearSelection.Size = new System.Drawing.Size(190, 20);
+            this.monthYearSelection.TabIndex = 0;
             // 
             // label1
             // 
@@ -181,7 +181,7 @@ namespace SoftwareII.Forms
         private System.Windows.Forms.Button generateReportButton;
         private System.Windows.Forms.Panel appointmentTypesMonthPanel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker monthSelection;
+        private System.Windows.Forms.DateTimePicker monthYearSelection;
         private System.Windows.Forms.ComboBox appointmentTypeDropdown;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;

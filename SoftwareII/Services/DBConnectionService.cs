@@ -19,6 +19,40 @@ namespace SoftwareII.Services
             } 
         }
 
+        internal List<Appointment> GetAllAppointmentsByDateAndType(DateTime time, string type)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var utcTime = time.ToUniversalTime();
+            Console.WriteLine("UTC Time: " + utcTime);
+            var month = utcTime.Month;
+            var year = utcTime.Year;
+            var appointments = new List<Appointment>();
+
+            using (connection)
+            {
+                var query = "SELECT * FROM appointment WHERE type = @type AND (start BETWEEN @startOfMonth AND @endOfMonth)";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@type", type);
+                    cmd.Parameters.AddWithValue("@utcTime", utcTime);
+                    cmd.Parameters.AddWithValue("@startOfMonth", string.Format("{0}-{1}-01", year, month));
+                    cmd.Parameters.AddWithValue("@endOfMonth", string.Format("{0}-{1}-{2}", year, month, DateTime.DaysInMonth(year, month)));
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            appointments.Add(DBToAppointment(rdr));
+                        }
+                    }
+                }
+            }
+            return appointments;
+        }
+
         public DBConnectionService()
         {
             StartConnection();
@@ -77,7 +111,7 @@ namespace SoftwareII.Services
                     {
                         cmd.Parameters.AddWithValue("@customerId", customerID);
                         cmd.ExecuteNonQuery();
-                        Program.FormService._schedulingManagerForm.LoadAllCustomers();
+                        Program.FormService._schedulingManagerForm.RefreshAllData();
                         MessageBox.Show("Success! User has been deleted.");
                     }
                 }
@@ -460,6 +494,34 @@ namespace SoftwareII.Services
                 }
             }
             return appointments;
+        }
+
+        public List<string> GetAllAppointmentTypes()
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var types = new List<string>();
+
+            using (connection)
+            {
+                var query = "SELECT type FROM appointment";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //We only want unique types.
+                            if (!types.Contains(rdr.GetString(0)))
+                                types.Add(rdr.GetString(0));
+                        }
+                    }
+                }
+            }
+            return types;
         }
 
         public Address GetAddressByID(int id)

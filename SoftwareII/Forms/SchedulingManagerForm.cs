@@ -86,9 +86,11 @@ namespace SoftwareII.Forms
             }
         }
 
-        public void RefreshData()
+        public void RefreshAllData()
         {
-            customerDataGrid.Refresh();
+            LoadAllCustomers();
+            LoadAllAppointments();
+            RefreshCalendar();
         }
 
         public void RefreshCalendar()

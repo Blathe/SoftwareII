@@ -9,12 +9,17 @@ namespace SoftwareII.Forms
     {
 
         private List<User> _allConsultants;
+        private List<string> _allAppointmentTypes;
 
         public ReportsForm()
         {
             InitializeComponent();
 
             _allConsultants = Program.DBService.GetAllConsultants();
+            _allAppointmentTypes = Program.DBService.GetAllAppointmentTypes();
+
+            appointmentTypeDropdown.DataSource = _allAppointmentTypes;
+            appointmentTypeDropdown.DisplayMember = "type";
 
             consultantSelectionBox.ValueMember = "userID";
             consultantSelectionBox.DisplayMember = "userName";
@@ -68,10 +73,12 @@ namespace SoftwareII.Forms
                 {
                     case "Appointment Types by Month":
                         //GenerateAppointmentTypesByMonthReport(1);
+                        AppointmentsByTypeReportForm apptByTypeForm = new AppointmentsByTypeReportForm(monthYearSelection.Value, appointmentTypeDropdown.Text);
+                        apptByTypeForm.Show();
                         break;
                     case "Consultant Schedules":
-                        ConsultantScheduleForm form = new ConsultantScheduleForm((int)consultantSelectionBox.SelectedValue);
-                        form.Show();
+                        ConsultantScheduleForm consultantScheduleForm = new ConsultantScheduleForm((int)consultantSelectionBox.SelectedValue);
+                        consultantScheduleForm.Show();
                         //GenerateConsultantSchedulesReport();
                         break;
                     default:
