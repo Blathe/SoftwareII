@@ -171,6 +171,7 @@
             this.updateAppointmentButton.TabIndex = 11;
             this.updateAppointmentButton.Text = "Update Appointment";
             this.updateAppointmentButton.UseVisualStyleBackColor = true;
+            this.updateAppointmentButton.Click += new System.EventHandler(this.updateAppointmentButton_Click);
             // 
             // deleteAppointmentButton
             // 
@@ -295,6 +296,7 @@
             this.Text = "Scheduling Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SchedulingManagerForm_FormClosed);
             this.Load += new System.EventHandler(this.SchedulingManagerForm_Load);
+            this.Shown += new System.EventHandler(this.SchedulingManagerForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDatagrid)).EndInit();
             this.panel1.ResumeLayout(false);

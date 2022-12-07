@@ -98,16 +98,16 @@
     <Compile Include="Forms\AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AppointmentsByTypeReportForm.cs">
+    <Compile Include="Forms\Report Forms\AppointmentsByTypeReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AppointmentsByTypeReportForm.Designer.cs">
+    <Compile Include="Forms\Report Forms\AppointmentsByTypeReportForm.Designer.cs">
       <DependentUpon>AppointmentsByTypeReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ConsultantScheduleForm.cs">
+    <Compile Include="Forms\Report Forms\ConsultantScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ConsultantScheduleForm.Designer.cs">
+    <Compile Include="Forms\Report Forms\ConsultantScheduleForm.Designer.cs">
       <DependentUpon>ConsultantScheduleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
@@ -115,6 +115,12 @@
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report Forms\ConsultantStatsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report Forms\ConsultantStatsForm.Designer.cs">
+      <DependentUpon>ConsultantStatsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ReportsForm.cs">
       <SubType>Form</SubType>
@@ -127,6 +133,12 @@
     </Compile>
     <Compile Include="Forms\SchedulingManagerForm.Designer.cs">
       <DependentUpon>SchedulingManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UpdateAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdateAppointmentForm.Designer.cs">
+      <DependentUpon>UpdateAppointmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UpdateUserForm.cs">
       <SubType>Form</SubType>
@@ -145,26 +157,33 @@
     <Compile Include="Services\FormService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Utilities\DateTimeUtilities.cs" />
     <EmbeddedResource Include="Forms\AddAppointmentForm.resx">
       <DependentUpon>AddAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AppointmentsByTypeReportForm.resx">
+    <EmbeddedResource Include="Forms\Report Forms\AppointmentsByTypeReportForm.resx">
       <DependentUpon>AppointmentsByTypeReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConsultantScheduleForm.resx">
+    <EmbeddedResource Include="Forms\Report Forms\ConsultantScheduleForm.resx">
       <DependentUpon>ConsultantScheduleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report Forms\ConsultantStatsForm.resx">
+      <DependentUpon>ConsultantStatsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReportsForm.resx">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SchedulingManagerForm.resx">
       <DependentUpon>SchedulingManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdateAppointmentForm.resx">
+      <DependentUpon>UpdateAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UpdateUserForm.resx">
       <DependentUpon>UpdateUserForm.cs</DependentUpon>

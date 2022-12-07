@@ -57,6 +57,12 @@ namespace SoftwareII.Forms
                     consultantSchedulePanel.Enabled = true;
                     consultantSchedulePanel.Visible = true;
                     break;
+                case "Appointment Count by Consultant":
+                    appointmentTypesMonthPanel.Enabled = false;
+                    appointmentTypesMonthPanel.Visible = false;
+                    consultantSchedulePanel.Enabled = true;
+                    consultantSchedulePanel.Visible = true;
+                    break;
                 default:
                     break;
             }
@@ -79,6 +85,11 @@ namespace SoftwareII.Forms
                     case "Consultant Schedules":
                         ConsultantScheduleForm consultantScheduleForm = new ConsultantScheduleForm((int)consultantSelectionBox.SelectedValue);
                         consultantScheduleForm.Show();
+                        //GenerateConsultantSchedulesReport();
+                        break;
+                    case "Appointment Count by Consultant":
+                        ConsultantStatsForm consultantStatsForm = new ConsultantStatsForm((int)consultantSelectionBox.SelectedValue);
+                        consultantStatsForm.Show();
                         //GenerateConsultantSchedulesReport();
                         break;
                     default:

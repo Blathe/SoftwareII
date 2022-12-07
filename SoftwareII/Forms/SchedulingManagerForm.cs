@@ -36,6 +36,11 @@ namespace SoftwareII.Forms
             LoadAllAppointments();
         }
 
+        private void SchedulingManagerForm_Shown(object sender, EventArgs e)
+        {
+            CheckMyAppointments();
+        }
+
         public void LoadAllCustomers()
         {
             _allCustomers = Program.DBService.GetAllCustomers();
@@ -55,6 +60,23 @@ namespace SoftwareII.Forms
 
             SetupCalendar();
         }
+
+        private void CheckMyAppointments()
+        {
+            foreach (var appt in _allAppointments)
+            {
+                if (appt.start.ToLocalTime() > DateTime.Now.ToLocalTime())
+                {
+                    var timeUntil = appt.start.ToLocalTime() - DateTime.Now.ToLocalTime();
+                    if (timeUntil.TotalMinutes < 15)
+                    {
+                        MessageBox.Show(string.Format("You have an upcoming appointment in {0} minute(s). ({1})", Math.Ceiling(timeUntil.TotalMinutes), appt.start.ToLocalTime().ToString("hh:mm tt")));
+                        return;
+                    }
+                }
+            }
+        }
+
         private void addCustomerButton_Click(object sender, EventArgs e)
         {
             var addCustomerForm = new AddCustomerForm();
@@ -205,6 +227,16 @@ namespace SoftwareII.Forms
         {
             ReportsForm reportForm = new ReportsForm();
             reportForm.Show();
+        }
+
+        private void updateAppointmentButton_Click(object sender, EventArgs e)
+        {
+            if (appointmentDatagrid.SelectedRows.Count > 0)
+            {
+                var apptId = (int)appointmentDatagrid.SelectedRows[0].Cells["appointmentId"].Value;
+                UpdateAppointmentForm updateForm = new UpdateAppointmentForm(apptId);
+                updateForm.Show();
+            }
         }
     }
 }

@@ -400,6 +400,39 @@ namespace SoftwareII.Services
                 }
             }
         }
+        public void UpdateAppointment(int appointmentId, int customerId, int consultantId, DateTime start, string type)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            using (connection)
+            {
+                try
+                {
+                    var query = "UPDATE appointment SET customerId=@customerId, userId=@userId, start=@start, end=@end, type=@type, lastUpdate=@lastUpdate, lastUpdateBy=@lastUpdateBy WHERE appointmentId=@appointmentId";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
+                        cmd.Parameters.AddWithValue("@customerId", customerId);
+                        cmd.Parameters.AddWithValue("@userId", consultantId);
+                        cmd.Parameters.AddWithValue("@start", start);
+                        cmd.Parameters.AddWithValue("@type", type);
+                        cmd.Parameters.AddWithValue("@end", start.AddMinutes(29));
+                        cmd.Parameters.AddWithValue("@lastUpdate", DateTime.Now.ToUniversalTime());
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", Program.AuthService._activeUser);
+                        cmd.ExecuteNonQuery();
+                        Program.FormService._schedulingManagerForm.RefreshAllData();
+                        MessageBox.Show("Your appointment has been updated successfully!");
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
 
         public Appointment DBToAppointment(MySqlDataReader rdr)
         {
@@ -522,6 +555,35 @@ namespace SoftwareII.Services
                 }
             }
             return types;
+        }
+
+        public Appointment GetAppointmentById(int apptId)
+        {
+            if (!connectionOpen)
+            {
+                connection.Open();
+            }
+
+            var appointment = new Appointment();
+
+            using (connection)
+            {
+                var query = "SELECT * FROM appointment " +
+                    "WHERE appointmentId=@appointmentId";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@appointmentId", apptId);
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            appointment = DBToAppointment(rdr);
+                        }
+                    }
+                }
+            }
+
+            return appointment;
         }
 
         public Address GetAddressByID(int id)
