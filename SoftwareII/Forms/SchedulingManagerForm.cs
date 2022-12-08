@@ -28,9 +28,16 @@ namespace SoftwareII.Forms
 
             localeLabel.Text = string.Format("Locale: {0}", _culture.Name);
         }
+        public void RefreshAllData()
+        {
+            LoadAllCustomers();
+            LoadAllAppointments();
+            RefreshCalendar();
+        }
 
         private void SchedulingManagerForm_Load(object sender, EventArgs e)
         {
+            //Do our initial setup, fetching data and setting up calendar.
             LoadAllCustomers();
             LoadAllAppointments();
             SetupCalendar();
@@ -38,6 +45,7 @@ namespace SoftwareII.Forms
 
         private void SchedulingManagerForm_Shown(object sender, EventArgs e)
         {
+            //Do this check in the Form.Shown event to prevent it from popping up before the Scheduling Manager Form is actually visible.
             CheckMyAppointments();
         }
 
@@ -106,18 +114,6 @@ namespace SoftwareII.Forms
             }
         }
 
-        public void RefreshAllData()
-        {
-            LoadAllCustomers();
-            LoadAllAppointments();
-            RefreshCalendar();
-        }
-
-        public void RefreshCalendar()
-        {
-            PopulateCalendar(_calendarStyle);
-        }
-
         private void SchedulingManagerForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -146,16 +142,6 @@ namespace SoftwareII.Forms
                 }
             }
         }
-        private void SetupCalendar()
-        {
-            calendarListView.View = View.Details;
-            calendarListView.Columns.Add("Customer", 70);
-            calendarListView.Columns.Add("Appointment Start", 200);
-            calendarListView.Columns.Add("Appointment End", 200);
-
-            weeklyViewRadioButton.Checked = true;
-            monthlyViewRadioButton.Checked = false;
-        }
 
         private void weeklyViewRadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -173,6 +159,21 @@ namespace SoftwareII.Forms
             }
         }
 
+        public void RefreshCalendar()
+        {
+            PopulateCalendar(_calendarStyle);
+        }
+
+        private void SetupCalendar()
+        {
+            calendarListView.View = View.Details;
+            calendarListView.Columns.Add("Customer", 70);
+            calendarListView.Columns.Add("Appointment Start", 200);
+            calendarListView.Columns.Add("Appointment End", 200);
+
+            weeklyViewRadioButton.Checked = true;
+            monthlyViewRadioButton.Checked = false;
+        }
         private void PopulateCalendar(CalendarStyle style)
         {
             try

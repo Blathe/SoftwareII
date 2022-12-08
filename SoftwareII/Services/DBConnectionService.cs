@@ -11,6 +11,19 @@ namespace SoftwareII.Services
     {
         public MySqlConnection connection { get; set; }
 
+        public DBConnectionService()
+        {
+            StartConnection();
+        }
+        ~DBConnectionService()
+        {
+            Console.WriteLine("Connection closing...");
+            CloseConnection();
+        }
+
+        /// <summary>
+        /// Checks whether a connection is currently open to the database.
+        /// </summary>
         public bool connectionOpen
         {
             get
@@ -19,7 +32,10 @@ namespace SoftwareII.Services
             }
         }
 
-        internal List<Appointment> GetAllAppointmentsByDateAndType(DateTime time, string type)
+        /// <summary>
+        /// Returns all appointments that fall within the month of the passed DateTime, and match the passed type.
+        /// </summary>
+        public List<Appointment> GetAllAppointmentsByDateAndType(DateTime time, string type)
         {
             if (!connectionOpen)
             {
@@ -53,16 +69,9 @@ namespace SoftwareII.Services
             return appointments;
         }
 
-        public DBConnectionService()
-        {
-            StartConnection();
-        }
-        ~DBConnectionService()
-        {
-            Console.WriteLine("Connection closing...");
-            CloseConnection();
-        }
-
+        /// <summary>
+        /// Connects to the database with the connection string inside our app.config.
+        /// </summary>
         public void StartConnection()
         {
             Console.WriteLine("DB Connection Service initializing...");
@@ -81,6 +90,10 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Deletes a customer from the database that matches the passed customerID.
+        /// If there is any data that relies on that customer being deleted, the data will also be deleted.
+        /// </summary>
         public void DeleteCustomer(int customerID)
         {
             if (!connectionOpen)
@@ -123,6 +136,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new customer in the database.
+        /// </summary>
         public void CreateNewCustomer(string name, string address, string phone, string city, string country)
         {
             if (!connectionOpen)
@@ -206,6 +222,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Updates a customer in the database.
+        /// </summary>
         public void UpdateCustomer(int customerId, int addressId, string name, string address, string phone)
         {
             if (!connectionOpen)
@@ -238,6 +257,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Returns the customer's name that matches the passed customerId.
+        /// </summary>
         public string GetCustomerNameById(int customerId)
         {
             if (!connectionOpen)
@@ -267,6 +289,9 @@ namespace SoftwareII.Services
             return name;
         }
 
+        /// <summary>
+        /// Returns a list of all customers in the database.
+        /// </summary>
         public List<Customer> GetAllCustomers()
         {
             if (!connectionOpen)
@@ -292,6 +317,9 @@ namespace SoftwareII.Services
             return customers;
         }
 
+        /// <summary>
+        /// Returns a single Customer who's id matches the passed customerID.
+        /// </summary>
         public Customer GetSingleCustomer(int customerID)
         {
             if (!connectionOpen)
@@ -321,6 +349,9 @@ namespace SoftwareII.Services
             return customer;
         }
 
+        /// <summary>
+        /// Utility that reads a MySqlDataReader and converts the read information into a Customer object.
+        /// </summary>
         public Customer DBToCustomer(MySqlDataReader rdr)
         {
             var customer = new Customer()
@@ -337,6 +368,9 @@ namespace SoftwareII.Services
             return customer;
         }
 
+        /// <summary>
+        /// Creates a new appointment in the database.
+        /// </summary>
         public void CreateNewAppointment(int customerId, int userId, string customerName, string type, DateTime start, DateTime end)
         {
             if (!connectionOpen)
@@ -378,6 +412,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Deletes an appointment from the database.
+        /// </summary>
         public void DeleteAppointment(int appointmentId)
         {
             if (!connectionOpen)
@@ -403,6 +440,10 @@ namespace SoftwareII.Services
                 }
             }
         }
+
+        /// <summary>
+        /// Updates an appointment in the database.
+        /// </summary>
         public void UpdateAppointment(int appointmentId, int customerId, int consultantId, DateTime start, string type)
         {
             if (!connectionOpen)
@@ -437,6 +478,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Utility that reads a MySqlDataReader and converts the read data into an Appointment object.
+        /// </summary>
         public Appointment DBToAppointment(MySqlDataReader rdr)
         {
             var appointment = new Appointment()
@@ -460,6 +504,9 @@ namespace SoftwareII.Services
             return appointment;
         }
 
+        /// <summary>
+        /// Utility that reads a MySqlDataReader and converts the read data into an Address object.
+        /// </summary>
         public Address DBToAddress(MySqlDataReader rdr)
         {
             var address = new Address()
@@ -479,6 +526,9 @@ namespace SoftwareII.Services
             return address;
         }
 
+        /// <summary>
+        /// Returns a list of Appointments who's userId matches the passed userId.
+        /// </summary>
         public List<Appointment> GetAllAppointmentsByConsultantId(int userId)
         {
             if (!connectionOpen)
@@ -506,6 +556,9 @@ namespace SoftwareII.Services
             return appointments;
         }
 
+        /// <summary>
+        /// Returns a list of all Appointments in the database.
+        /// </summary>
         public List<Appointment> GetAllAppointments()
         {
             if (!connectionOpen)
@@ -532,6 +585,9 @@ namespace SoftwareII.Services
             return appointments;
         }
 
+        /// <summary>
+        /// Returns a list of appointment types that exist within the database.
+        /// </summary>
         public List<string> GetAllAppointmentTypes()
         {
             if (!connectionOpen)
@@ -560,6 +616,9 @@ namespace SoftwareII.Services
             return types;
         }
 
+        /// <summary>
+        /// Returns a single Appointment who's id matches the passed apptId.
+        /// </summary>
         public Appointment GetAppointmentById(int apptId)
         {
             if (!connectionOpen)
@@ -589,6 +648,9 @@ namespace SoftwareII.Services
             return appointment;
         }
 
+        /// <summary>
+        /// Returns a single Address who's id matches the passed id.
+        /// </summary>
         public Address GetAddressByID(int id)
         {
             if (!connectionOpen)
@@ -616,6 +678,9 @@ namespace SoftwareII.Services
             return address;
         }
 
+        /// <summary>
+        /// Utility that takes a MySqlDataReader and converts the data read into a single User object.
+        /// </summary>
         public User DBToUser(MySqlDataReader rdr)
         {
             var consultant = new User()
@@ -633,6 +698,9 @@ namespace SoftwareII.Services
             return consultant;
         }
 
+        /// <summary>
+        /// Returns a list of all Users (consultants) in the database.
+        /// </summary>
         public List<User> GetAllConsultants()
         {
             if (!connectionOpen)
@@ -658,6 +726,9 @@ namespace SoftwareII.Services
             return consultants;
         }
 
+        /// <summary>
+        /// Returns a single User (consultant) who's id matches the passed userId.
+        /// </summary>
         public User GetSingleConsultant(int userId)
         {
             if (!connectionOpen)
@@ -687,6 +758,9 @@ namespace SoftwareII.Services
             return consultant;
         }
 
+        /// <summary>
+        /// Closes the database connection.
+        /// </summary>
         public void CloseConnection()
         {
             if (connection != null)

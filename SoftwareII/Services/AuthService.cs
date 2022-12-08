@@ -15,6 +15,9 @@ namespace SoftwareII.Services
         {
         }
 
+        /// <summary>
+        /// Authenticates the user with a username and password.
+        /// </summary>
         public void AuthenticateUser(string username, string password, CultureInfo culture, LoginForm loginForm)
         {
             _culture = culture;
@@ -63,6 +66,9 @@ namespace SoftwareII.Services
             }
         }
 
+        /// <summary>
+        /// Displays an invalid login message that is localized to de-DE locale.
+        /// </summary>
         void ShowInvalidUserError(string username)
         {
             var UTCTime = DateTime.UtcNow;

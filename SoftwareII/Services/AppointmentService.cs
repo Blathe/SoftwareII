@@ -8,7 +8,11 @@ namespace SoftwareII.Services
         public static int open = 7; // 8 AM
         public static int close = 18; // 6 PM
 
-        public static bool DoAppointmentsOverlap(DateTime dateToCheck, int? appointmentId)
+        /// <summary>
+        /// Checks if the given DateTime overlaps with any other appointments in the system.
+        /// If an appointmentId is passed, it assumes that the appointment is being updated and will allow it to be scheduled at the same time.
+        /// </summary>
+        public static bool DoAppointmentsOverlap(DateTime dateToCheck, int appointmentId)
         {
             var allAppointments = Program.DBService.GetAllAppointments();
 
@@ -33,6 +37,9 @@ namespace SoftwareII.Services
             return false;
         }
 
+        /// <summary>
+        /// Checks if the given DateTime is within business hours.
+        /// </summary>
         public static bool WithinBusinessHours(DateTime dateToCheck)
         {
             if (dateToCheck.DayOfWeek == DayOfWeek.Sunday || dateToCheck.DayOfWeek == DayOfWeek.Saturday)

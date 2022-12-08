@@ -8,6 +8,7 @@ namespace SoftwareII.Forms
     public partial class AppointmentsByTypeReportForm : Form
     {
         private List<Appointment> _allAppointments;
+
         public AppointmentsByTypeReportForm(DateTime time, string type)
         {
             InitializeComponent();

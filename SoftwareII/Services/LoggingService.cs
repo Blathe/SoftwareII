@@ -4,6 +4,9 @@ namespace SoftwareII.Services
 {
     class LoggingService
     {
+        /// <summary>
+        /// Checks whether a log file exists, creating it if not. This will append a new log into the log file.
+        /// </summary>
         public void CreateLog(string text)
         {
             //TODO: CHANGE THIS BEFORE DEPLOYING TO THE VIRTUAL MACHINE

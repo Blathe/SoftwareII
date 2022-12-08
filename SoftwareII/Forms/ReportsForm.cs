@@ -24,16 +24,6 @@ namespace SoftwareII.Forms
             consultantSelectionBox.ValueMember = "userID";
             consultantSelectionBox.DisplayMember = "userName";
             consultantSelectionBox.DataSource = _allConsultants;
-
-            //PopulateConsultantBox();
-        }
-
-        private void PopulateConsultantBox()
-        {
-            foreach (var consultant in _allConsultants)
-            {
-                consultantSelectionBox.Items.Add(consultant.userName);
-            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,6 +33,7 @@ namespace SoftwareII.Forms
                 return;
             }
 
+            //Hard coded - would be better to do this dynamically.
             switch (reportListBox.SelectedItem.ToString())
             {
                 case "Appointment Types by Month":
@@ -86,34 +77,21 @@ namespace SoftwareII.Forms
                 switch (reportListBox.SelectedItem.ToString())
                 {
                     case "Appointment Types by Month":
-                        //GenerateAppointmentTypesByMonthReport(1);
                         AppointmentsByTypeReportForm apptByTypeForm = new AppointmentsByTypeReportForm(monthYearSelection.Value, appointmentTypeDropdown.Text);
                         apptByTypeForm.Show();
                         break;
                     case "Consultant Schedules":
                         ConsultantScheduleForm consultantScheduleForm = new ConsultantScheduleForm((int)consultantSelectionBox.SelectedValue);
                         consultantScheduleForm.Show();
-                        //GenerateConsultantSchedulesReport();
                         break;
                     case "Consultant Stats":
                         ConsultantStatsForm consultantStatsForm = new ConsultantStatsForm((int)consultantSelectionBox.SelectedValue);
                         consultantStatsForm.Show();
-                        //GenerateConsultantSchedulesReport();
                         break;
                     default:
                         break;
                 }
             }
-        }
-
-        private void GenerateConsultantSchedulesReport(User consultant)
-        {
-
-        }
-
-        private void GenerateAppointmentTypesByMonthReport(int month, string type)
-        {
-
         }
     }
 }

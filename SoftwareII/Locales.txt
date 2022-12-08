@@ -1,0 +1,2 @@
+﻿Default Locale: en-US
+Secondary Locale: de-DE
