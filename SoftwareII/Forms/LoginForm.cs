@@ -1,7 +1,6 @@
-﻿using SoftwareII.Services;
-using System;
-using System.Windows.Forms;
+﻿using System;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace SoftwareII
 {
@@ -31,7 +30,7 @@ namespace SoftwareII
 
                 if (username == "")
                 {
-                    switch(_culture.Name)
+                    switch (_culture.Name)
                     {
                         case "en-US":
                             MessageBox.Show("Your username cannot be blank.");

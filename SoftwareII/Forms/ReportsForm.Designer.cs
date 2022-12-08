@@ -50,7 +50,7 @@ namespace SoftwareII.Forms
             this.reportListBox.Items.AddRange(new object[] {
             "Appointment Types by Month",
             "Consultant Schedules",
-            "Appointment Count by Consultant"});
+            "Consultant Stats"});
             this.reportListBox.Location = new System.Drawing.Point(23, 40);
             this.reportListBox.Name = "reportListBox";
             this.reportListBox.Size = new System.Drawing.Size(360, 95);

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using SoftwareII.Models;
+﻿using SoftwareII.Models;
 using SoftwareII.Services;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace SoftwareII.Forms
 {
@@ -13,7 +12,7 @@ namespace SoftwareII.Forms
         private List<Customer> _allCustomers;
         private List<User> _allUsers;
 
-        private int _timePickerCurrentMinute;
+        //private int _timePickerCurrentMinute;
 
         private DateTime _selectedTime;
 
@@ -24,7 +23,7 @@ namespace SoftwareII.Forms
 
             _schedulingForm = schedulingForm;
 
-            _timePickerCurrentMinute = timePicker.Value.Minute;
+            //_timePickerCurrentMinute = timePicker.Value.Minute;
             _allUsers = Program.DBService.GetAllConsultants();
 
             userSelectBox.DataSource = _allUsers;
@@ -48,8 +47,8 @@ namespace SoftwareII.Forms
 
         private void AddAppointmentForm_Load(object sender, EventArgs e)
         {
-            //Prevent scheduling appointments in the past.
-            datePicker.MinDate = DateTime.UtcNow;
+            //Uncomment the code below to prevent selecting a date in the past. Currently allowing appointments to be scheduled in the past to test reports.
+            //datePicker.MinDate = DateTime.UtcNow;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -78,7 +77,8 @@ namespace SoftwareII.Forms
                     timePicker.Value = timePicker.Value.AddHours(-1);
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -120,7 +120,7 @@ namespace SoftwareII.Forms
                 return false;
             }
 
-            if (AppointmentService.DoAppointmentsOverlap(_selectedTime))
+            if (AppointmentService.DoAppointmentsOverlap(_selectedTime, null))
                 return false;
 
             //Check if this is within business hours local time, we can be outside of business hours when saving to the DB as long as local time is correct.

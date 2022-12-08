@@ -49,7 +49,7 @@ namespace SoftwareII.Forms
             this.timePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timePicker.Location = new System.Drawing.Point(525, 160);
-            this.timePicker.MinDate = new System.DateTime(2022, 11, 27, 0, 0, 0, 0);
+            this.timePicker.MinDate = new System.DateTime(2021, 11, 27, 0, 0, 0, 0);
             this.timePicker.Name = "timePicker";
             this.timePicker.ShowUpDown = true;
             this.timePicker.Size = new System.Drawing.Size(102, 26);
@@ -161,7 +161,7 @@ namespace SoftwareII.Forms
             this.datePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datePicker.Location = new System.Drawing.Point(246, 160);
-            this.datePicker.MinDate = new System.DateTime(2022, 11, 27, 0, 0, 0, 0);
+            this.datePicker.MinDate = new System.DateTime(2021, 11, 27, 0, 0, 0, 0);
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(273, 26);
             this.datePicker.TabIndex = 12;

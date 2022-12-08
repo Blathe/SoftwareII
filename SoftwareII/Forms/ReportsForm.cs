@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SoftwareII.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SoftwareII.Models;
 
 namespace SoftwareII.Forms
 {
@@ -57,7 +57,7 @@ namespace SoftwareII.Forms
                     consultantSchedulePanel.Enabled = true;
                     consultantSchedulePanel.Visible = true;
                     break;
-                case "Appointment Count by Consultant":
+                case "Consultant Stats":
                     appointmentTypesMonthPanel.Enabled = false;
                     appointmentTypesMonthPanel.Visible = false;
                     consultantSchedulePanel.Enabled = true;
@@ -70,10 +70,18 @@ namespace SoftwareII.Forms
 
         private void generateReportButton_Click(object sender, EventArgs e)
         {
+            if (reportListBox.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a report to display.");
+                return;
+            }
+
             if (consultantSelectionBox.Text == "")
             {
                 MessageBox.Show("You must select a consultant before you can generate a report.");
-            } else
+                return;
+            }
+            else
             {
                 switch (reportListBox.SelectedItem.ToString())
                 {
@@ -87,7 +95,7 @@ namespace SoftwareII.Forms
                         consultantScheduleForm.Show();
                         //GenerateConsultantSchedulesReport();
                         break;
-                    case "Appointment Count by Consultant":
+                    case "Consultant Stats":
                         ConsultantStatsForm consultantStatsForm = new ConsultantStatsForm((int)consultantSelectionBox.SelectedValue);
                         consultantStatsForm.Show();
                         //GenerateConsultantSchedulesReport();
@@ -100,12 +108,12 @@ namespace SoftwareII.Forms
 
         private void GenerateConsultantSchedulesReport(User consultant)
         {
-            
+
         }
 
         private void GenerateAppointmentTypesByMonthReport(int month, string type)
         {
-            
+
         }
     }
 }

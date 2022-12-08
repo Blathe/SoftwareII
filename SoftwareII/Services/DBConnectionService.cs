@@ -1,10 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
+using SoftwareII.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows.Forms;
-using SoftwareII.Models;
-using System;
-using SoftwareII.Forms;
 
 namespace SoftwareII.Services
 {
@@ -12,11 +11,12 @@ namespace SoftwareII.Services
     {
         public MySqlConnection connection { get; set; }
 
-        public bool connectionOpen { 
+        public bool connectionOpen
+        {
             get
             {
                 return connection.State == System.Data.ConnectionState.Open ? true : false;
-            } 
+            }
         }
 
         internal List<Appointment> GetAllAppointmentsByDateAndType(DateTime time, string type)
@@ -73,7 +73,8 @@ namespace SoftwareII.Services
                 Console.WriteLine("DB connection opened!");
                 Console.WriteLine("Starting services...");
 
-            } catch (MySqlException ex)
+            }
+            catch (MySqlException ex)
             {
                 //TODO
                 MessageBox.Show(ex.Message);
@@ -197,7 +198,8 @@ namespace SoftwareII.Services
                         Program.FormService._schedulingManagerForm.LoadAllCustomers();
                         MessageBox.Show("Success! User has been added.");
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
@@ -255,7 +257,8 @@ namespace SoftwareII.Services
                         cmd.Parameters.AddWithValue("@customerId", customerId);
                         name = (string)cmd.ExecuteScalar();
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }

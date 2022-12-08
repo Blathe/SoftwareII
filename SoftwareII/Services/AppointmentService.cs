@@ -1,27 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using SoftwareII.Models;
 
 namespace SoftwareII.Services
 {
     public static class AppointmentService
     {
-        public static int open = 8; // 8 AM
+        public static int open = 7; // 8 AM
         public static int close = 18; // 6 PM
 
-        public static bool DoAppointmentsOverlap(DateTime dateToCheck)
+        public static bool DoAppointmentsOverlap(DateTime dateToCheck, int? appointmentId)
         {
-            Console.WriteLine("Checking Date: " + dateToCheck);
             var allAppointments = Program.DBService.GetAllAppointments();
+
             foreach (var appointment in allAppointments)
             {
                 var start = appointment.start;
                 var end = appointment.end;
                 Console.WriteLine(string.Format("Appointment - Start: {0} | End: {1}", start, end));
-                if (dateToCheck >= start && dateToCheck <= end) {
-                    MessageBox.Show("An appointment is already booked during that time, try another date or time.");
-                    return true;
+                if (dateToCheck >= start && dateToCheck <= end)
+                {
+                    //Skip if this is the same appointmentId as this will be an update rather than newly created appointment.
+                    if (appointmentId == appointment.appointmentId)
+                    {
+                            return false;
+                    } else
+                    {
+                        MessageBox.Show("An appointment is already booked during that time, try another date or time.");
+                        return true;
+                    }
                 }
             }
             return false;

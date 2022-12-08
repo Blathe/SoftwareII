@@ -1,5 +1,4 @@
 ﻿using SoftwareII.Models;
-using SoftwareII.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -34,6 +33,7 @@ namespace SoftwareII.Forms
         {
             LoadAllCustomers();
             LoadAllAppointments();
+            SetupCalendar();
         }
 
         private void SchedulingManagerForm_Shown(object sender, EventArgs e)
@@ -57,8 +57,6 @@ namespace SoftwareII.Forms
             }
 
             appointmentDatagrid.DataSource = _allAppointments;
-
-            SetupCalendar();
         }
 
         private void CheckMyAppointments()
@@ -144,7 +142,7 @@ namespace SoftwareII.Forms
                     {
                         Program.DBService.DeleteAppointment((int)appointmentDatagrid.SelectedRows[i].Cells["appointmentId"].Value);
                         PopulateCalendar(CalendarStyle.WEEKLY);
-                    } 
+                    }
                 }
             }
         }
@@ -202,11 +200,12 @@ namespace SoftwareII.Forms
                     LoadCalendarItems(_calendarAppointments);
                     _calendarStyle = CalendarStyle.WEEKLY;
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-         
+
         }
 
         private void LoadCalendarItems(List<Appointment> appointments)

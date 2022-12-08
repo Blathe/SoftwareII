@@ -31,12 +31,12 @@ namespace SoftwareII.Forms
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.futureThisWeek = new System.Windows.Forms.Label();
-            this.futureThisMonth = new System.Windows.Forms.Label();
             this.futureThisYear = new System.Windows.Forms.Label();
+            this.futureThisMonth = new System.Windows.Forms.Label();
+            this.futureThisWeek = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pastThisYear = new System.Windows.Forms.Label();
             this.pastThisMonth = new System.Windows.Forms.Label();
@@ -75,46 +75,16 @@ namespace SoftwareII.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Future Appointments";
             // 
-            // label2
+            // futureThisYear
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Total This Week:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Total This Month:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 61);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Total This Year:";
-            // 
-            // futureThisWeek
-            // 
-            this.futureThisWeek.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.futureThisWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.futureThisWeek.Location = new System.Drawing.Point(150, 16);
-            this.futureThisWeek.Name = "futureThisWeek";
-            this.futureThisWeek.Size = new System.Drawing.Size(89, 13);
-            this.futureThisWeek.TabIndex = 3;
-            this.futureThisWeek.Text = "14";
-            this.futureThisWeek.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.futureThisYear.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.futureThisYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.futureThisYear.Location = new System.Drawing.Point(157, 61);
+            this.futureThisYear.Name = "futureThisYear";
+            this.futureThisYear.Size = new System.Drawing.Size(82, 13);
+            this.futureThisYear.TabIndex = 5;
+            this.futureThisYear.Text = "37";
+            this.futureThisYear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // futureThisMonth
             // 
@@ -127,16 +97,46 @@ namespace SoftwareII.Forms
             this.futureThisMonth.Text = "24";
             this.futureThisMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // futureThisYear
+            // futureThisWeek
             // 
-            this.futureThisYear.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.futureThisYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.futureThisYear.Location = new System.Drawing.Point(157, 61);
-            this.futureThisYear.Name = "futureThisYear";
-            this.futureThisYear.Size = new System.Drawing.Size(82, 13);
-            this.futureThisYear.TabIndex = 5;
-            this.futureThisYear.Text = "37";
-            this.futureThisYear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.futureThisWeek.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.futureThisWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.futureThisWeek.Location = new System.Drawing.Point(150, 16);
+            this.futureThisWeek.Name = "futureThisWeek";
+            this.futureThisWeek.Size = new System.Drawing.Size(89, 13);
+            this.futureThisWeek.TabIndex = 3;
+            this.futureThisWeek.Text = "14";
+            this.futureThisWeek.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Total This Year:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Total This Month:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Total This Week:";
             // 
             // groupBox2
             // 
@@ -229,7 +229,7 @@ namespace SoftwareII.Forms
             // consultantIdLabel
             // 
             this.consultantIdLabel.AutoSize = true;
-            this.consultantIdLabel.Location = new System.Drawing.Point(27, 37);
+            this.consultantIdLabel.Location = new System.Drawing.Point(24, 38);
             this.consultantIdLabel.Name = "consultantIdLabel";
             this.consultantIdLabel.Size = new System.Drawing.Size(35, 13);
             this.consultantIdLabel.TabIndex = 8;

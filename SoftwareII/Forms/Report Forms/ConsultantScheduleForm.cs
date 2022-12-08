@@ -1,12 +1,5 @@
 ﻿using SoftwareII.Models;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SoftwareII.Forms
@@ -23,7 +16,7 @@ namespace SoftwareII.Forms
             _userId = userId;
             PopulateReport(_userId);
         }
-         
+
         private void PopulateReport(int userId)
         {
             _user = Program.DBService.GetSingleConsultant(userId);

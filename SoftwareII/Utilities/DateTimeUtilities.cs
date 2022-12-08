@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftwareII.Utilities
 {
@@ -37,7 +33,6 @@ namespace SoftwareII.Utilities
 
         public static DateTime GetLastDayOfMonth(DateTime date)
         {
-            //Get the current month, add 1 month, and subtract 1 day to find the last day of the current month.
             var start = new DateTime(date.Year, date.Month, 1);
             var end = start.AddMonths(1).AddDays(-1);
             return end;

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SoftwareII.Models;
+using SoftwareII.Services;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SoftwareII.Models;
-using SoftwareII.Services;
 
 namespace SoftwareII.Forms
 {
@@ -53,7 +53,7 @@ namespace SoftwareII.Forms
         private void updateButton_Click(object sender, EventArgs e)
         {
             //Make sure our dates display local time when shown to the user.
-           _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second).ToUniversalTime();
+            _selectedTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second).ToUniversalTime();
 
 
             if (formValid())
@@ -87,7 +87,7 @@ namespace SoftwareII.Forms
                 return false;
             }
 
-            if (AppointmentService.DoAppointmentsOverlap(_selectedTime))
+            if (AppointmentService.DoAppointmentsOverlap(_selectedTime, _appointmentId))
                 return false;
 
             //Check if this is within business hours local time, we can be outside of business hours when saving to the DB as long as local time is correct.

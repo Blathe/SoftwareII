@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
+using SoftwareII.Forms;
+using System;
 using System.Globalization;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Cms;
-using SoftwareII.Forms;
-using SoftwareII.Models;
 
 namespace SoftwareII.Services
 {
@@ -34,7 +31,8 @@ namespace SoftwareII.Services
                 {
                     using (var rdr = cmd.ExecuteReader())
                     {
-                        if (!rdr.HasRows) {
+                        if (!rdr.HasRows)
+                        {
                             ShowInvalidUserError(username);
                             return;
                         }

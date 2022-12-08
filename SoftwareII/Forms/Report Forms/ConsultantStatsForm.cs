@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SoftwareII.Models;
+using SoftwareII.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SoftwareII.Models;
-using SoftwareII.Utilities;
 
 namespace SoftwareII.Forms
 {
@@ -32,16 +32,15 @@ namespace SoftwareII.Forms
 
             consultantIdLabel.Text = string.Format("User id: {0}", _consultant.userID.ToString());
 
-            Console.WriteLine(DateTimeUtilities.GetLastDayOfYear(DateTime.Now));
+            Console.WriteLine(string.Format("{0} - {1}", DateTime.Now, DateTimeUtilities.GetLastDayOfWeek(DateTime.Now)));
 
-            futureThisWeek.Text = _consultantAppointments.FindAll(appointment => appointment.start >= DateTime.Now.ToUniversalTime() && appointment.start <= DateTimeUtilities.GetLastDayOfWeek(DateTime.Now.ToUniversalTime())).Count.ToString();
-            futureThisMonth.Text = _consultantAppointments.FindAll(appointment => appointment.start >= DateTime.Now.ToUniversalTime() && appointment.start <= DateTimeUtilities.GetLastDayOfMonth(DateTime.Now.ToUniversalTime())).Count.ToString();
-            futureThisYear.Text = _consultantAppointments.FindAll(appointment => appointment.start >= DateTime.Now.ToUniversalTime() && appointment.start <= DateTimeUtilities.GetLastDayOfYear(DateTime.Now.ToUniversalTime())).Count.ToString();
+            futureThisWeek.Text = _consultantAppointments.FindAll(appointment => appointment.start.ToLocalTime() >= DateTime.Now && appointment.start <= DateTimeUtilities.GetLastDayOfWeek(DateTime.Now)).Count.ToString();
+            futureThisMonth.Text = _consultantAppointments.FindAll(appointment => appointment.start.ToLocalTime() >= DateTime.Now && appointment.start <= DateTimeUtilities.GetLastDayOfMonth(DateTime.Now)).Count.ToString();
+            futureThisYear.Text = _consultantAppointments.FindAll(appointment => appointment.start.ToLocalTime() >= DateTime.Now && appointment.start <= DateTimeUtilities.GetLastDayOfYear(DateTime.Now)).Count.ToString();
 
             pastThisWeek.Text = _consultantAppointments.FindAll(appointment => appointment.start <= DateTime.Now.ToUniversalTime() && appointment.start >= DateTimeUtilities.GetFirstDayOfWeek(DateTime.Now.ToUniversalTime())).Count.ToString();
             pastThisMonth.Text = _consultantAppointments.FindAll(appointment => appointment.start <= DateTime.Now.ToUniversalTime() && appointment.start >= DateTimeUtilities.GetFirstDayOfMonth(DateTime.Now.ToUniversalTime())).Count.ToString();
             pastThisYear.Text = _consultantAppointments.FindAll(appointment => appointment.start <= DateTime.Now.ToUniversalTime() && appointment.start >= DateTimeUtilities.GetFirstDayOfYear(DateTime.Now.ToUniversalTime())).Count.ToString();
-
         }
     }
 }
