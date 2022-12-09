@@ -19,6 +19,14 @@ namespace SoftwareII
             // _culture = new CultureInfo("de-DE");
 
             _culture = CultureInfo.CurrentCulture;
+
+            if (_culture.Name == "de-DE")
+            {
+                this.Text = "Einloggen";
+                loginButton.Text = "Einloggen";
+                usernameLabel.Text = "Nutzername";
+                passwordLabel.Text = "Passwort";
+            }
         }
 
         private void loginButton_Click(object sender, EventArgs e)

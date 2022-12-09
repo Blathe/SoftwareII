@@ -120,7 +120,7 @@ namespace SoftwareII.Forms
                 return false;
             }
 
-            if (AppointmentService.DoAppointmentsOverlap(_selectedTime, null))
+            if (AppointmentService.DoAppointmentsOverlap(_selectedTime, 0))
                 return false;
 
             //Check if this is within business hours local time, we can be outside of business hours when saving to the DB as long as local time is correct.
